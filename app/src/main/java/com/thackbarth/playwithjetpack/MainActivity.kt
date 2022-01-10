@@ -11,7 +11,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.thackbarth.playwithjetpack.model.MainViewModel
-import com.thackbarth.playwithjetpack.model.PhotoNetworkEntity
+//import com.thackbarth.playwithjetpack.model.PhotoNetworkEntity
 import com.thackbarth.playwithjetpack.network.PhotoApi
 import com.thackbarth.playwithjetpack.ui.theme.PlayWithJetPackTheme
 

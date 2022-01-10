@@ -2,7 +2,7 @@ package com.thackbarth.playwithjetpack.network
 
 
 import com.thackbarth.playwithjetpack.model.Photo
-import com.thackbarth.playwithjetpack.model.PhotoNetworkEntity
+//import com.thackbarth.playwithjetpack.model.PhotoNetworkEntity
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
