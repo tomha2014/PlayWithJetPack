@@ -11,6 +11,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.thackbarth.playwithjetpack.model.MainViewModel
+import com.thackbarth.playwithjetpack.navigation.ApplicationNaviagation
 //import com.thackbarth.playwithjetpack.model.PhotoNetworkEntity
 import com.thackbarth.playwithjetpack.network.PhotoApi
 import com.thackbarth.playwithjetpack.ui.theme.PlayWithJetPackTheme
@@ -25,29 +26,17 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             PlayWithJetPackTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    LazyColumn {
-                        itemsIndexed(items = vm.photoListResponse) { index, item ->
-                            Greeting(item.title)
-                        }
-                    }
-
-                }
+                 ApplicationNaviagation(vm)
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     PlayWithJetPackTheme {
-        Greeting("Android")
+
     }
 }
