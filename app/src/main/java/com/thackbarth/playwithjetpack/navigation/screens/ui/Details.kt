@@ -12,4 +12,5 @@ fun DetailsScreen(navController: NavController, id: Int?){
     var photo = MainViewModel.photoListResponse.filter { it.id == id  }.first()
     Text(text = "Details go here: ${photo.title}")
 
+
 }
