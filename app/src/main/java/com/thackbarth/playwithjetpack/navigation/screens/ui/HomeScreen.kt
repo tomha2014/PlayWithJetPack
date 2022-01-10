@@ -20,7 +20,7 @@ fun HomeScreen(navController: NavController){
         LazyColumn {
             itemsIndexed(items = MainViewModel.photoListResponse) { index, item ->
                 PhotoRow(item){
-                    navController.navigate( route = ApplicationScreens.DetailsScreen.name)
+                    navController.navigate( route = ApplicationScreens.DetailsScreen.name+"/"+item.id)
                     Log.d("test","you clicked on ${it.title}")
                 }
             }
