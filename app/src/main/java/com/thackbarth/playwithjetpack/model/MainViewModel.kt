@@ -9,9 +9,9 @@ import androidx.lifecycle.viewModelScope
 import com.thackbarth.playwithjetpack.network.PhotoApi
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
-    public var photoListResponse:List<Photo> by mutableStateOf(listOf())
+object MainViewModel : ViewModel() {
 
+    public var photoListResponse:List<Photo> by mutableStateOf(listOf())
 
     var errorMessage: String by mutableStateOf("")
 

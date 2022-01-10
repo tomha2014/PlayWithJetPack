@@ -7,4 +7,5 @@ data class Photo (
     var title: String,
     var url: String,
     var thumbnailUrl: String
+    
 )
