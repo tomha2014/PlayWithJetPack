@@ -1,4 +1,4 @@
-package com.thackbarth.playwithjetpack.navigation.screens
+package com.thackbarth.playwithjetpack.navigation.screens.ui
 
 import android.util.Log
 import androidx.compose.foundation.lazy.LazyColumn
@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import com.thackbarth.playwithjetpack.model.MainViewModel
 import com.thackbarth.playwithjetpack.composables.PhotoRow
+import com.thackbarth.playwithjetpack.navigation.screens.ApplicationScreens
 
 
 @Composable
@@ -23,6 +24,5 @@ fun HomeScreen(navController: NavController){
                 }
             }
         }
-
     }
 }

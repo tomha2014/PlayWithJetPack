@@ -7,11 +7,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.thackbarth.playwithjetpack.navigation.screens.ApplicationScreens
-import com.thackbarth.playwithjetpack.navigation.screens.DetailsScreen
-import com.thackbarth.playwithjetpack.navigation.screens.HomeScreen
+import com.thackbarth.playwithjetpack.navigation.screens.ui.DetailsScreen
+import com.thackbarth.playwithjetpack.navigation.screens.ui.HomeScreen
 
 @Composable
-fun ApplicationNaviagation(){
+fun ApplicationNavigation(){
     val navController = rememberNavController()
 
     NavHost(navController = navController,

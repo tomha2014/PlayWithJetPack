@@ -20,8 +20,7 @@ import com.thackbarth.playwithjetpack.model.Photo
 
 @ExperimentalCoilApi
 @Composable
-fun PhotoRow(photo: Photo,  onItemClick: (Photo) -> Unit = {}) {
-
+fun PhotoRow(photo: Photo, onItemClick: (Photo) -> Unit = {}) {
     Card(
         modifier = Modifier
             .padding(4.dp)
