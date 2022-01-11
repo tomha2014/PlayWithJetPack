@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ExperimentalComposeApi
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -12,7 +13,10 @@ import com.thackbarth.playwithjetpack.model.MainViewModel
 import com.thackbarth.playwithjetpack.navigation.ApplicationNavigation
 //import com.thackbarth.playwithjetpack.model.PhotoNetworkEntity
 import com.thackbarth.playwithjetpack.ui.theme.PlayWithJetPackTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+//@ExperimentalComposeApi
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         MainViewModel.getMovieList()
