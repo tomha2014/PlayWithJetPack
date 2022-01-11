@@ -16,17 +16,18 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import com.thackbarth.playwithjetpack.model.Photo
+import com.thackbarth.playwithjetpack.model.Product
+
 
 @ExperimentalCoilApi
 @Composable
-fun PhotoRow(photo: Photo, onItemClick: (Photo) -> Unit = {}) {
+fun ProductRow(product: Product, onItemClick: (Product) -> Unit = {}) {
     Card(
         modifier = Modifier
             .padding(4.dp)
             .fillMaxWidth()
             .clickable {
-                onItemClick(photo)
+                onItemClick(product)
             },
         shape = RoundedCornerShape(corner = CornerSize(16.dp)),
 //        backgroundColor = Color.Black.copy(alpha = 0.2f),
@@ -44,13 +45,13 @@ fun PhotoRow(photo: Photo, onItemClick: (Photo) -> Unit = {}) {
                 elevation = 4.dp
             ) {
                 Image(
-                    painter = rememberImagePainter(photo.thumbnailUrl),
-                    contentDescription = photo.title
+                    painter = rememberImagePainter(product.image),
+                    contentDescription = product.title
                 )
             }
             Column(modifier = Modifier.padding(4.dp)) {
                 Text(
-                    text = photo.title,
+                    text = product.title,
                     style = MaterialTheme.typography.h5
                 )
             }

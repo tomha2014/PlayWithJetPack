@@ -16,7 +16,7 @@ import com.thackbarth.playwithjetpack.ui.theme.PlayWithJetPackTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 //@ExperimentalComposeApi
-@AndroidEntryPoint
+//@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         MainViewModel.getMovieList()

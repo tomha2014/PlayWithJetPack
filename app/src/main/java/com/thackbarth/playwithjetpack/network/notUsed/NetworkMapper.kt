@@ -1,6 +1,6 @@
-package com.thackbarth.playwithjetpack.network
+package com.thackbarth.playwithjetpack.network.notUsed
 
-//import com.thackbarth.playwithjetpack.model.Photo
+//import com.thackbarth.playwithjetpack.model.notUsed.Photo
 //import com.thackbarth.playwithjetpack.model.PhotoNetworkEntity
 //
 //

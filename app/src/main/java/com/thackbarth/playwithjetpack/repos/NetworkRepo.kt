@@ -1,8 +1,6 @@
 package com.thackbarth.playwithjetpack.repos
 
-import com.thackbarth.playwithjetpack.model.Photo
 //import com.thackbarth.playwithjetpack.network.NetworkMapper
-import com.thackbarth.playwithjetpack.network.PhotoApi
 
 
 //class NetworkRepo constructor(

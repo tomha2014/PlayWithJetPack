@@ -1,4 +1,4 @@
-package com.thackbarth.playwithjetpack.network
+package com.thackbarth.playwithjetpack.network.notUsed
 
 //interface ApiService {
 //

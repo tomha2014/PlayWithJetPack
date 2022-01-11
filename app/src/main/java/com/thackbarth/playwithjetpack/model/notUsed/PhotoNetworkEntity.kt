@@ -1,4 +1,4 @@
-package com.thackbarth.playwithjetpack.model
+package com.thackbarth.playwithjetpack.model.notUsed
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

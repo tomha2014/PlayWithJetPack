@@ -5,21 +5,21 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.thackbarth.playwithjetpack.network.PhotoApi
+import com.thackbarth.playwithjetpack.network.StoreApi
 import kotlinx.coroutines.launch
 
 object MainViewModel : ViewModel() {
 
-    public var photoListResponse:List<Photo> by mutableStateOf(listOf())
+    var productList:List<Product> by mutableStateOf(listOf())
 
     var errorMessage: String by mutableStateOf("")
 
     fun getMovieList() {
         viewModelScope.launch {
-            val apiService = PhotoApi.getInstance()
+            val apiService = StoreApi.getInstance()
             try {
-                val photoList = apiService.get()
-                photoListResponse = photoList
+                val products = apiService.get()
+                productList = products
             }
             catch (e: Exception) {
                 errorMessage = e.message.toString()

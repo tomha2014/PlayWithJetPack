@@ -1,25 +1,24 @@
 package com.thackbarth.playwithjetpack.network
 
 
-import com.thackbarth.playwithjetpack.model.Photo
-//import com.thackbarth.playwithjetpack.model.PhotoNetworkEntity
+import com.thackbarth.playwithjetpack.model.Product
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
-interface PhotoApi {
+interface StoreApi {
 
-    @GET("photos")
-    suspend fun get():List<Photo>
+    @GET("products")
+    suspend fun get():List<Product>
 
     companion object {
-        var apiService: PhotoApi? = null
-        fun getInstance() : PhotoApi {
+        var apiService: StoreApi? = null
+        fun getInstance() : StoreApi {
             if (apiService == null) {
                 apiService = Retrofit.Builder()
-                    .baseUrl("https://jsonplaceholder.typicode.com/")
+                    .baseUrl("https://fakestoreapi.com/")
                     .addConverterFactory(GsonConverterFactory.create())
-                    .build().create(PhotoApi::class.java)
+                    .build().create(StoreApi::class.java)
             }
             return apiService!!
         }
