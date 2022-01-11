@@ -30,14 +30,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Content() {
     PlayWithJetPackTheme {
-//        Scaffold(topBar = {
-//            TopAppBar(backgroundColor = Color.Blue,
-//                elevation = 0.dp) {
-//                Text(text = "Play With Jetpack")
-//            }
-//        },) {
-            ApplicationNavigation()
-//        }
+        ApplicationNavigation()
     }
 }
 
