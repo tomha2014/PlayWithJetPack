@@ -4,13 +4,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
-import coil.compose.rememberImagePainter
-import com.thackbarth.playwithjetpack.model.MainViewModel
-import com.thackbarth.playwithjetpack.model.Photo
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import coil.compose.rememberImagePainter
+import com.thackbarth.playwithjetpack.model.MainViewModel
 
 
 @Composable

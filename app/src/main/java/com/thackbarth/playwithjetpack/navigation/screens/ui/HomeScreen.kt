@@ -3,14 +3,12 @@ package com.thackbarth.playwithjetpack.navigation.screens
 import android.util.Log
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import com.thackbarth.playwithjetpack.model.MainViewModel
-import com.thackbarth.playwithjetpack.widgets.Greeting
-import com.thackbarth.playwithjetpack.widgets.PhotoRow
+import com.thackbarth.playwithjetpack.composables.PhotoRow
 
 
 @Composable

@@ -1,4 +1,4 @@
-package com.thackbarth.playwithjetpack.widgets
+package com.thackbarth.playwithjetpack.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -14,9 +14,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
+import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.thackbarth.playwithjetpack.model.Photo
 
+@ExperimentalCoilApi
 @Composable
 fun PhotoRow(photo: Photo,  onItemClick: (Photo) -> Unit = {}) {
 
@@ -44,12 +46,12 @@ fun PhotoRow(photo: Photo,  onItemClick: (Photo) -> Unit = {}) {
             ) {
                 Image(
                     painter = rememberImagePainter(photo.thumbnailUrl),
-                    contentDescription = "${photo.title}"
+                    contentDescription = photo.title
                 )
             }
             Column(modifier = Modifier.padding(4.dp)) {
                 Text(
-                    text = "${photo.title}",
+                    text = photo.title,
                     style = MaterialTheme.typography.h5
                 )
             }
