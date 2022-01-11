@@ -1,5 +1,8 @@
 package com.thackbarth.playwithjetpack.model
 
+import androidx.room.*
+import java.util.*
+
 /*
 
 https://fakestoreapi.com/products
@@ -18,17 +21,49 @@ https://fakestoreapi.com/products
     },
  */
 
-data class Rating(
-    val rate: Float,
-    val count: Int
-)
+//data class ProductAndRating(
+//    @Embedded val rating: Rating,
+//    @Relation(
+//        parentColumn = "id",
+//        entityColumn =
+//    )
+//
+//    val rating: Rating
+//
+//
+//)
 
+//@Entity(tableName = "Product_rating" )
+//data class Rating(
+//    @PrimaryKey
+//    val id: UUID = UUID.randomUUID(),
+//
+//    @ColumnInfo(name = "rate" )
+//    val rate: Float,
+//
+//    @ColumnInfo(name = "count" )
+//    val count: Int
+//)
+
+@Entity(tableName = "Product_table" )
 data class Product(
+    @PrimaryKey
     val id: Int,
+
+    @ColumnInfo(name = "product_title" )
     val title:String,
+
+    @ColumnInfo(name = "product_price" )
     val price: Float,
+
+    @ColumnInfo(name = "product_description" )
     val description: String,
+
+    @ColumnInfo(name = "product_category" )
     val category: String,
-    val image: String,
-    val rating:Rating
+
+    @ColumnInfo(name = "product_image_url" )
+    val image: String//,
+
+//    val rating:Rating
 )

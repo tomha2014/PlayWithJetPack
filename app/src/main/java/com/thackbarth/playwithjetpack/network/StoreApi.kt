@@ -13,6 +13,7 @@ interface StoreApi {
 
     companion object {
         var apiService: StoreApi? = null
+
         fun getInstance() : StoreApi {
             if (apiService == null) {
                 apiService = Retrofit.Builder()
