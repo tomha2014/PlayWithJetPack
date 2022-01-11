@@ -14,33 +14,28 @@ import com.thackbarth.playwithjetpack.navigation.ApplicationNavigation
 import com.thackbarth.playwithjetpack.ui.theme.PlayWithJetPackTheme
 
 class MainActivity : ComponentActivity() {
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         MainViewModel.getMovieList()
-
         super.onCreate(savedInstanceState)
         setContent {
-            PlayWithJetPackTheme {
-
-                Scaffold(topBar = {
-                    TopAppBar(backgroundColor = Color.Blue,
-                        elevation = 0.dp) {
-                        Text(text = "Play With Jetpack")
-
-                    }
-                },) {
-                    ApplicationNavigation()
-                }
-
-
-
-            }
+            Content()
         }
     }
 }
 
+@Composable
+fun Content() {
+    PlayWithJetPackTheme {
+//        Scaffold(topBar = {
+//            TopAppBar(backgroundColor = Color.Blue,
+//                elevation = 0.dp) {
+//                Text(text = "Play With Jetpack")
+//            }
+//        },) {
+            ApplicationNavigation()
+//        }
+    }
+}
 
 @Preview(showBackground = true)
 @Composable

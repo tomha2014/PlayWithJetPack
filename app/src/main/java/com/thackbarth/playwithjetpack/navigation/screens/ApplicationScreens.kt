@@ -15,5 +15,4 @@ enum class ApplicationScreens {
             else -> throw  IllegalArgumentException("Route $route not found")
         }
     }
-
 }
