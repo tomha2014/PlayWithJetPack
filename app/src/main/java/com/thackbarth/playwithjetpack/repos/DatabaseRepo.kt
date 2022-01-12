@@ -11,11 +11,11 @@ import javax.inject.Inject
 
 class DatabaseRepo @Inject constructor(private val productDatabaseDao: ProductDatabaseDao) {
 
-    suspend fun addNote(product: Product) = productDatabaseDao.insert(product)
-    suspend fun updateNote(product: Product) = productDatabaseDao.update(product)
-    suspend fun deleteNote(product: Product) = productDatabaseDao.deleteProduct(product)
-    suspend fun deleteAllNotes() = productDatabaseDao.deleteAll()
-    fun getAllNotes(): Flow<List<Product>> = productDatabaseDao.getProducts().flowOn(Dispatchers.IO)
+    suspend fun addProduct(product: Product) = productDatabaseDao.insert(product)
+    suspend fun updateProduct(product: Product) = productDatabaseDao.update(product)
+    suspend fun deleteProduct(product: Product) = productDatabaseDao.deleteProduct(product)
+    suspend fun deleteAllProducts() = productDatabaseDao.deleteAll()
+    fun getAllProducts1(): Flow<List<Product>> = productDatabaseDao.getProducts().flowOn(Dispatchers.IO)
         .conflate()
 
 }

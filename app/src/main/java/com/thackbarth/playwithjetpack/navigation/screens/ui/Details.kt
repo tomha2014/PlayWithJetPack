@@ -10,16 +10,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.thackbarth.playwithjetpack.model.MainViewModel
 import com.thackbarth.playwithjetpack.model.Product
+import kotlinx.coroutines.InternalCoroutinesApi
 
+@InternalCoroutinesApi
 @Composable
-fun DetailsScreen(navController: NavController, id: Int?) {
+fun DetailsScreen(navController: NavController, id: Int?, vm: MainViewModel = hiltViewModel()) {
 
-    val product = MainViewModel.productList.first { it.id == id }
+    val product = id?.let { vm.findProductByID(it) }
 
     Scaffold(
         topBar = {
@@ -40,7 +44,10 @@ fun DetailsScreen(navController: NavController, id: Int?) {
             )
         },
         content = {
-            DetailsContent(product = product)
+            // TMH Fix This!
+            // I would not be in here if there was not a product selected,
+            // but bad
+            DetailsContent(product = product!!)
         }
     )
 }

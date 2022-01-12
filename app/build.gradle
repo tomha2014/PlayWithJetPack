@@ -96,4 +96,19 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0"
 
+
+
+    // to use kotlin activity extensions for ViewModel
+    implementation 'androidx.activity:activity-ktx:1.4.0'
+    implementation "androidx.hilt:hilt-navigation-compose:1.0.0-rc01"
+
+
+
+
+// LiveData
+    implementation 'androidx.ui:ui-livedata:0.1.0-dev14'
+
+
+// When using Kotlin.
+    kapt 'androidx.hilt:hilt-compiler:1.0.0'
 }
