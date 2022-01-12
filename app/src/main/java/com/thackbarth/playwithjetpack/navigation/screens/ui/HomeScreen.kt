@@ -49,7 +49,7 @@ fun HomeScreen(navController: NavController, viewModel: MainViewModel){
 @Composable
 fun HomeScreenContent(navController: NavController, vm: MainViewModel ) {
 
-// I THINK THIS WORKS!
+// THIS WORKS!
     val lst = vm.productList.collectAsState().value
 
     Log.d("MainViewModel", "here")
