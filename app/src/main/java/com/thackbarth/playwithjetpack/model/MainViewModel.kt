@@ -6,13 +6,16 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thackbarth.playwithjetpack.network.StoreApi
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 
+@HiltViewModel
 object MainViewModel : ViewModel() {
 
-    var productList:List<Product> by mutableStateOf(listOf())
+    var productList:List<Product> by mutableStateOf(emptyList())
 
     var errorMessage: String by mutableStateOf("")
+
 
     fun getMovieList() {
         viewModelScope.launch {
