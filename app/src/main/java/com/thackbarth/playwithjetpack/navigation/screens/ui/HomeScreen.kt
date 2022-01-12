@@ -7,6 +7,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -15,6 +16,7 @@ import com.thackbarth.playwithjetpack.composables.ProductRow
 import com.thackbarth.playwithjetpack.model.MainViewModel
 import com.thackbarth.playwithjetpack.navigation.screens.ApplicationScreens
 import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 
 
 @InternalCoroutinesApi
@@ -47,16 +49,17 @@ fun HomeScreen(navController: NavController, viewModel: MainViewModel){
 @Composable
 fun HomeScreenContent(navController: NavController, vm: MainViewModel ) {
 
-//    val viewModel: MainViewModel = viewModel()
+// I THINK THIS WORKS!
+    val lst = vm.productList.collectAsState().value
 
     Log.d("MainViewModel", "here")
-    vm.photos.value?.forEach {
+    lst.forEach {
         Log.d("MainViewModel", it.title)
     }
 
     Surface(color = Color.White) {
         LazyColumn {
-            itemsIndexed(items = vm.productList.value) { index, item ->
+            itemsIndexed(items = lst) { index, item ->
                 ProductRow(item) {
                     navController.navigate(route = ApplicationScreens.DetailsScreen.name + "/" + item.id)
                     Log.d("test", "you clicked on ${it.title}")
