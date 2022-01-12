@@ -22,25 +22,26 @@ import kotlinx.coroutines.InternalCoroutinesApi
 //@ExperimentalComposeApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private val viewModel: MainViewModel by viewModels()
+
     @InternalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val viewModel: MainViewModel by viewModels()
+
         viewModel.loadAllData()
-//        MainViewModel.getMovieList()
 
         setContent {
-
-            Content()
+            Content(viewModel)
         }
     }
 }
 
 @InternalCoroutinesApi
 @Composable
-fun Content() {
+fun Content(viewModel: MainViewModel) {
     PlayWithJetPackTheme {
-        ApplicationNavigation()
+        ApplicationNavigation(viewModel = viewModel)
     }
 }
 

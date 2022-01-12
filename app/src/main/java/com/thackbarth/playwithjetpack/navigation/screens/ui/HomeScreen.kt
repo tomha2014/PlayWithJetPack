@@ -13,16 +13,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.thackbarth.playwithjetpack.composables.ProductRow
 import com.thackbarth.playwithjetpack.model.MainViewModel
-import com.thackbarth.playwithjetpack.model.Product
 import com.thackbarth.playwithjetpack.navigation.screens.ApplicationScreens
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.collect
-
 
 
 @InternalCoroutinesApi
 @Composable
-fun HomeScreen(navController: NavController){
+fun HomeScreen(navController: NavController, viewModel: MainViewModel){
 
     Scaffold(topBar = {
         TopAppBar(
@@ -42,19 +39,24 @@ fun HomeScreen(navController: NavController){
         )
     },
         content = {
-            HomeScreenContent(navController = navController )
+            HomeScreenContent(navController = navController, viewModel )
         })
 }
 
 @InternalCoroutinesApi
 @Composable
-fun HomeScreenContent(navController: NavController, vm: MainViewModel = hiltViewModel()) {
+fun HomeScreenContent(navController: NavController, vm: MainViewModel ) {
 
-    val viewModel: MainViewModel = viewModel()
+//    val viewModel: MainViewModel = viewModel()
+
+    Log.d("MainViewModel", "here")
+    vm.photos.value?.forEach {
+        Log.d("MainViewModel", it.title)
+    }
 
     Surface(color = Color.White) {
         LazyColumn {
-            itemsIndexed(items = viewModel.productList.value) { index, item ->
+            itemsIndexed(items = vm.productList.value) { index, item ->
                 ProductRow(item) {
                     navController.navigate(route = ApplicationScreens.DetailsScreen.name + "/" + item.id)
                     Log.d("test", "you clicked on ${it.title}")
