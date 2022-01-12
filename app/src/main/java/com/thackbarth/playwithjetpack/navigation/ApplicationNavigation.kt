@@ -9,7 +9,9 @@ import androidx.navigation.navArgument
 import com.thackbarth.playwithjetpack.navigation.screens.ApplicationScreens
 import com.thackbarth.playwithjetpack.navigation.screens.ui.DetailsScreen
 import com.thackbarth.playwithjetpack.navigation.screens.ui.HomeScreen
+import kotlinx.coroutines.InternalCoroutinesApi
 
+@InternalCoroutinesApi
 @Composable
 fun ApplicationNavigation(){
     val navController = rememberNavController()
