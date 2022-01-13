@@ -9,8 +9,6 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.thackbarth.playwithjetpack.composables.ProductRow
 import com.thackbarth.playwithjetpack.model.MainViewModel
@@ -52,9 +50,10 @@ fun HomeScreenContent(navController: NavController, vm: MainViewModel ) {
 // THIS WORKS!
     val lst = vm.productList.collectAsState().value
 
-    Log.d("MainViewModel", "here")
-    lst.forEach {
-        Log.d("MainViewModel", it.title)
+    Log.d("category", "==========")
+    vm.getCategories().forEach {
+        Log.d("category", it)
+
     }
 
     Surface(color = Color.White) {

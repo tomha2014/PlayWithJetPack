@@ -1,11 +1,10 @@
 package com.thackbarth.playwithjetpack.model
 
 import android.util.Log
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,12 +12,11 @@ import com.thackbarth.playwithjetpack.network.StoreApi
 import com.thackbarth.playwithjetpack.repos.DatabaseRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import javax.inject.Singleton
-import kotlin.math.log
 
 
 data class Photo (
@@ -76,6 +74,17 @@ constructor(
                 }
             }
         }
+    }
+
+    fun getCategories() : List<String>{
+        val lst = productList.value
+        val cats = ArrayList<String>()
+        lst.forEach{
+            if (!cats.contains(it.category)){
+                cats.add(it.category)
+            }
+        }
+        return cats
     }
 
     fun getAllProducts(): List<Product>{
