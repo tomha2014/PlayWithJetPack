@@ -60,9 +60,11 @@ fun HomeScreenContent(navController: NavController, vm: MainViewModel) {
 
     Surface(color = Color.White) {
         Column() {
-            ButtonBar(buttons = vm.categoryList.value!!, buttonSelected = {
-                vm.filterCategory = it
-            })
+            vm.categoryList.value?.let {
+                ButtonBar(buttons = it, buttonSelected = {
+                    vm.filterCategory = it
+                })
+            }
             DisplayItemInRows(navController = navController, lst)
         }
     }
