@@ -8,6 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.thackbarth.playwithjetpack.Constants
 import com.thackbarth.playwithjetpack.network.StoreApi
 import com.thackbarth.playwithjetpack.repos.DatabaseRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,10 +28,11 @@ data class Photo (
 class MainViewModel
 @Inject
 constructor(
-    private val repository: DatabaseRepo
+    private val repository: DatabaseRepo,
+    private val storeApi: StoreApi
 ) : ViewModel() {
 
-    private val TAG = "MainViewModel"
+
 
     val productList = MutableStateFlow<List<Product>>(emptyList())
     var errorMessage: String by mutableStateOf("")
@@ -39,7 +41,7 @@ constructor(
 
 
     init {
-        Log.d(TAG, "init")
+        Log.d(Constants.TAG, "init")
     }
 
     fun loadAllData(){
@@ -48,14 +50,13 @@ constructor(
             repository.getAllProducts1().distinctUntilChanged().collect {
                     stuff ->
                 if (stuff.isNullOrEmpty()){
-                    Log.d(TAG, "out of stuff")
+                    Log.d(Constants.TAG, "out of stuff")
 
                     if (productList.value.isEmpty()){
-                        Log.d(TAG, "database was empty of stuff, go get new stuff from server")
+                        Log.d(Constants.TAG, "database was empty of stuff, go get new stuff from server")
                         try {
-                            val apiService = StoreApi.getInstance()
-                            val products = apiService.get()
-                            Log.d(TAG, "data Loaded")
+                            val products = storeApi.get()
+                            Log.d(Constants.TAG, "data Loaded")
 
 
                             // Save each item in the database for next time.
@@ -93,7 +94,7 @@ constructor(
 
     fun findProductByID(id: Int): Product? {
 
-        productList.value.map { Log.d(TAG, it.title) }
+        productList.value.map { Log.d(Constants.TAG, it.title) }
 
         return productList.value.first { it.id == id }
     }
