@@ -1,6 +1,7 @@
 package com.thackbarth.playwithjetpack.network
 
 
+import com.thackbarth.playwithjetpack.Constants
 import com.thackbarth.playwithjetpack.model.Product
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -17,7 +18,7 @@ interface StoreApi {
         fun getInstance() : StoreApi {
             if (apiService == null) {
                 apiService = Retrofit.Builder()
-                    .baseUrl("https://fakestoreapi.com/")
+                    .baseUrl(Constants.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build().create(StoreApi::class.java)
             }
