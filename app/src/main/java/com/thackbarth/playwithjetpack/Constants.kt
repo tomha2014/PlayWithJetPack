@@ -6,4 +6,6 @@ object Constants {
     const val TABLE_NAME = "product_table"
 
     const val TAG = "MainViewModel"
+
+    const val EVERYTHING = "EveryThing"
 }

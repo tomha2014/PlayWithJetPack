@@ -33,7 +33,7 @@ constructor(
 ) : ViewModel() {
 
 
-    var filterCategory: String by mutableStateOf("EveryThing")
+    var filterCategory: String by mutableStateOf(Constants.EVERYTHING)
 
     val productList = MutableStateFlow<List<Product>>(emptyList())
     var errorMessage: String by mutableStateOf("")
@@ -52,7 +52,7 @@ constructor(
             repository.getAllProducts1().distinctUntilChanged().collect {
                     stuff ->
                 if (stuff.isNullOrEmpty()){
-                    Log.d(TAG, "out of stuff")
+                    Log.d(Constants.TAG, "out of stuff")
                     if (productList.value.isEmpty()){
                         Log.d(Constants.TAG, "database was empty of stuff, go get new stuff from server")
                         try {

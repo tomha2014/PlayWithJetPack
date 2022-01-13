@@ -10,8 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
+import com.thackbarth.playwithjetpack.Constants
 import com.thackbarth.playwithjetpack.composables.ProductRow
+import com.thackbarth.playwithjetpack.filterListForString
 import com.thackbarth.playwithjetpack.model.MainViewModel
+import com.thackbarth.playwithjetpack.model.Product
 import com.thackbarth.playwithjetpack.navigation.screens.ApplicationScreens
 import com.thackbarth.playwithjetpack.widgets.ButtonBar
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -19,7 +22,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 @InternalCoroutinesApi
 @Composable
-fun HomeScreen(navController: NavController, viewModel: MainViewModel){
+fun HomeScreen(navController: NavController, viewModel: MainViewModel) {
 
     Scaffold(topBar = {
         TopAppBar(
@@ -39,37 +42,39 @@ fun HomeScreen(navController: NavController, viewModel: MainViewModel){
         )
     },
         content = {
-            HomeScreenContent(navController = navController, viewModel )
+            HomeScreenContent(navController = navController, viewModel)
         })
 }
 
 @InternalCoroutinesApi
 @Composable
-fun HomeScreenContent(navController: NavController, vm: MainViewModel ) {
+fun HomeScreenContent(navController: NavController, vm: MainViewModel) {
 
-    // THIS WORKS!
-    // THIS WORKS!
-    // THIS WORKS!
-    val lst = vm.productList.collectAsState().value.filter {
-        if (vm.filterCategory == "EveryThing") {
-            true
-        }else {
-            it.category == vm.filterCategory
-        }
-    }
+    // NOTE TO SELF!!! vm.productList.collectAsState().value WORKS!!
+
+    val lst = filterListForString(
+        vm.filterCategory,
+        Constants.EVERYTHING,
+        vm.productList.collectAsState().value
+    )
 
     Surface(color = Color.White) {
         Column() {
             ButtonBar(buttons = vm.categoryList.value!!, buttonSelected = {
                 vm.filterCategory = it
             })
+            DisplayItemInRows(navController = navController, lst)
+        }
+    }
+}
 
-            LazyColumn {
-                itemsIndexed(items = lst) { index, item ->
-                    ProductRow(item) {
-                        navController.navigate(route = ApplicationScreens.DetailsScreen.name + "/" + item.id)
-                    }
-                }
+@InternalCoroutinesApi
+@Composable
+fun DisplayItemInRows(navController: NavController, lst: List<Product>) {
+    LazyColumn {
+        itemsIndexed(items = lst) { index, item ->
+            ProductRow(item) {
+                navController.navigate(route = ApplicationScreens.DetailsScreen.name + "/" + item.id)
             }
         }
     }
