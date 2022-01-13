@@ -1,6 +1,6 @@
 package com.thackbarth.playwithjetpack.navigation.screens.ui
 
-import android.util.Log
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
@@ -13,8 +13,8 @@ import androidx.navigation.NavController
 import com.thackbarth.playwithjetpack.composables.ProductRow
 import com.thackbarth.playwithjetpack.model.MainViewModel
 import com.thackbarth.playwithjetpack.navigation.screens.ApplicationScreens
+import com.thackbarth.playwithjetpack.widgets.ButtonBar
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 
 
 @InternalCoroutinesApi
@@ -47,21 +47,28 @@ fun HomeScreen(navController: NavController, viewModel: MainViewModel){
 @Composable
 fun HomeScreenContent(navController: NavController, vm: MainViewModel ) {
 
-// THIS WORKS!
-    val lst = vm.productList.collectAsState().value
-
-    Log.d("category", "==========")
-    vm.getCategories().forEach {
-        Log.d("category", it)
-
+    // THIS WORKS!
+    // THIS WORKS!
+    // THIS WORKS!
+    val lst = vm.productList.collectAsState().value.filter {
+        if (vm.filterCategory == "EveryThing") {
+            true
+        }else {
+            it.category == vm.filterCategory
+        }
     }
 
     Surface(color = Color.White) {
-        LazyColumn {
-            itemsIndexed(items = lst) { index, item ->
-                ProductRow(item) {
-                    navController.navigate(route = ApplicationScreens.DetailsScreen.name + "/" + item.id)
-                    Log.d("test", "you clicked on ${it.title}")
+        Column() {
+            ButtonBar(buttons = vm.categoryList.value!!, buttonSelected = {
+                vm.filterCategory = it
+            })
+
+            LazyColumn {
+                itemsIndexed(items = lst) { index, item ->
+                    ProductRow(item) {
+                        navController.navigate(route = ApplicationScreens.DetailsScreen.name + "/" + item.id)
+                    }
                 }
             }
         }
