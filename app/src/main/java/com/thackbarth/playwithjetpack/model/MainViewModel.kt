@@ -34,6 +34,7 @@ constructor(
 
     val productList = MutableStateFlow<List<Product>>(emptyList())
     var errorMessage: String by mutableStateOf("")
+    val categoryList = MutableLiveData<List<String>>(emptyList())
 
     var photos: MutableLiveData<ArrayList<Photo>> = MutableLiveData()
 
@@ -49,7 +50,6 @@ constructor(
                     stuff ->
                 if (stuff.isNullOrEmpty()){
                     Log.d(TAG, "out of stuff")
-
                     if (productList.value.isEmpty()){
                         Log.d(TAG, "database was empty of stuff, go get new stuff from server")
                         try {
@@ -64,27 +64,29 @@ constructor(
                             }
 
                             productList.value = products
-
+                            buildCategoryList()
                         } catch (e: Exception) {
                             errorMessage = e.message.toString()
                         }
                     }
                 } else {
                     productList.value = stuff
+                    buildCategoryList()
                 }
             }
         }
     }
 
-    fun getCategories() : List<String>{
+    private fun buildCategoryList() {
         val lst = productList.value
         val cats = ArrayList<String>()
+        cats.add("Everything")
         lst.forEach{
             if (!cats.contains(it.category)){
                 cats.add(it.category)
             }
         }
-        return cats
+         categoryList.postValue(cats)
     }
 
     fun getAllProducts(): List<Product>{
