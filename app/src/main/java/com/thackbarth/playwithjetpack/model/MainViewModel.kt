@@ -32,6 +32,8 @@ constructor(
 
     private val TAG = "MainViewModel"
 
+    var filterCategory: String by mutableStateOf("EveryThing")
+
     val productList = MutableStateFlow<List<Product>>(emptyList())
     var errorMessage: String by mutableStateOf("")
     val categoryList = MutableLiveData<List<String>>(emptyList())

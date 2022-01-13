@@ -1,11 +1,6 @@
 package com.thackbarth.playwithjetpack.navigation.screens.ui
 
-import android.util.Log
-import android.widget.HorizontalScrollView
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
@@ -13,16 +8,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.thackbarth.playwithjetpack.composables.ProductRow
 import com.thackbarth.playwithjetpack.model.MainViewModel
 import com.thackbarth.playwithjetpack.navigation.screens.ApplicationScreens
 import com.thackbarth.playwithjetpack.widgets.ButtonBar
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 
 
 @InternalCoroutinesApi
@@ -58,12 +50,18 @@ fun HomeScreenContent(navController: NavController, vm: MainViewModel ) {
     // THIS WORKS!
     // THIS WORKS!
     // THIS WORKS!
-    val lst = vm.productList.collectAsState().value
+    val lst = vm.productList.collectAsState().value.filter {
+        if (vm.filterCategory == "EveryThing") {
+            true
+        }else {
+            it.category == vm.filterCategory
+        }
+    }
 
     Surface(color = Color.White) {
         Column() {
             ButtonBar(buttons = vm.categoryList.value!!, buttonSelected = {
-
+                vm.filterCategory = it
             })
 
             LazyColumn {

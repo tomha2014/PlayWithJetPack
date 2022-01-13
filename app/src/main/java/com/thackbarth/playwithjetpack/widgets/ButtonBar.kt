@@ -1,6 +1,7 @@
 package com.thackbarth.playwithjetpack.widgets
 
 import android.widget.HorizontalScrollView
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -17,10 +18,14 @@ fun ButtonBar(buttons: List<String>, buttonSelected:(result:String)->Unit) {
         ScrollableTabRow(selectedTabIndex = 0, modifier = Modifier.fillMaxWidth()) {
             for (category in buttons) {
                 Text(
+
                     text = category,
                     style = MaterialTheme.typography.body1,
                     color = MaterialTheme.colors.secondary,
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier.padding(8.dp).clickable {
+                                                                buttonSelected(category)
+                    },
+
                 )
             }
         }
