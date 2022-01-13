@@ -55,40 +55,21 @@ fun HomeScreen(navController: NavController, viewModel: MainViewModel){
 @Composable
 fun HomeScreenContent(navController: NavController, vm: MainViewModel ) {
 
-// THIS WORKS!
+    // THIS WORKS!
+    // THIS WORKS!
+    // THIS WORKS!
     val lst = vm.productList.collectAsState().value
 
-    val cats = vm.categoryList.value
-
-    Log.d("category", "==========")
-    cats?.let {
-        it.forEach {category ->
-            Log.d("category", category)
-        }
-    }
-
     Surface(color = Color.White) {
-
         Column() {
-            Row() {
-                ScrollableTabRow(selectedTabIndex = 0, modifier = Modifier.fillMaxWidth()) {
-                    for (category in vm.categoryList.value!!) {
-                        Text(
-                            text = category,
-                            style = MaterialTheme.typography.body1,
-                            color = MaterialTheme.colors.secondary,
-                            modifier = Modifier.padding(8.dp)
-                        )
-                    }
-                }
-            }
+            ButtonBar(buttons = vm.categoryList.value!!, buttonSelected = {
+
+            })
 
             LazyColumn {
-
                 itemsIndexed(items = lst) { index, item ->
                     ProductRow(item) {
                         navController.navigate(route = ApplicationScreens.DetailsScreen.name + "/" + item.id)
-                        Log.d("test", "you clicked on ${it.title}")
                     }
                 }
             }
