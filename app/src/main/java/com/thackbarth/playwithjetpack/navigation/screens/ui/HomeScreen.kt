@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import com.thackbarth.playwithjetpack.composables.ProductRow
 import com.thackbarth.playwithjetpack.model.MainViewModel
 import com.thackbarth.playwithjetpack.navigation.screens.ApplicationScreens
+import com.thackbarth.playwithjetpack.widgets.ButtonBar
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 
@@ -50,6 +51,8 @@ fun HomeScreenContent(navController: NavController, vm: MainViewModel ) {
 // THIS WORKS!
     val lst = vm.productList.collectAsState().value
 
+    val cats = vm.getCategories()
+
     Log.d("category", "==========")
     vm.getCategories().forEach {
         Log.d("category", it)
@@ -57,6 +60,7 @@ fun HomeScreenContent(navController: NavController, vm: MainViewModel ) {
     }
 
     Surface(color = Color.White) {
+        ButtonBar(buttons = , buttonSelected = )
         LazyColumn {
             itemsIndexed(items = lst) { index, item ->
                 ProductRow(item) {
