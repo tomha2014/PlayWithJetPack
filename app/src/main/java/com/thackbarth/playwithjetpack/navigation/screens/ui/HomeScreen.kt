@@ -7,7 +7,8 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import com.thackbarth.playwithjetpack.Constants
@@ -27,7 +28,7 @@ fun HomeScreen(navController: NavController, viewModel: MainViewModel) {
 
     Scaffold(topBar = {
         TopAppBar(
-            title = { Text(text = "Row Details") },
+            title = { Text(text = "Shopping") },
             navigationIcon = if (navController.previousBackStackEntry != null) {
                 {
                     IconButton(onClick = { navController.navigateUp() }) {

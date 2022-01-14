@@ -32,16 +32,14 @@ constructor(
     private val storeApi: StoreApi
 ) : ViewModel() {
 
-
     var filterCategory: String by mutableStateOf(Constants.EVERYTHING)
-    var selectedTabIndex: Int by mutableStateOf(1)
+    var selectedTabIndex: Int by mutableStateOf(0)
 
     val productList = MutableStateFlow<List<Product>>(emptyList())
     var errorMessage: String by mutableStateOf("")
     val categoryList = MutableLiveData<List<String>>(emptyList())
 
-    var photos: MutableLiveData<ArrayList<Photo>> = MutableLiveData()
-
+    val shoppingCart = MutableLiveData<List<CartItem>>(emptyList())
 
     init {
         Log.d(Constants.TAG, "init")
