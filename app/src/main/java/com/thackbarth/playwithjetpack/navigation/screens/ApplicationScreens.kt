@@ -5,6 +5,7 @@ import java.lang.IllegalArgumentException
 
 enum class ApplicationScreens {
     HomeScreen,
+    ShoppingCart,
     DetailsScreen;
 
     companion object {

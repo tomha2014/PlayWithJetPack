@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
@@ -28,7 +29,21 @@ fun HomeScreen(navController: NavController, viewModel: MainViewModel) {
 
     Scaffold(topBar = {
         TopAppBar(
-            title = { Text(text = "Shopping") },
+            title = { Text(text = "What Not Store Front") },
+            actions = {
+                if (viewModel.shoppingCart.value!= null) {
+                    if (viewModel.shoppingCart.value!!.size > 0) {
+                        IconButton(onClick = {
+                            navController.navigate(route = ApplicationScreens.ShoppingCart.name )
+                        }) {
+                            Icon(
+                                imageVector = Icons.Default.ShoppingCart,
+                                contentDescription = "ShoppingCart"
+                            )
+                        }
+                    }
+                }
+            },
             navigationIcon = if (navController.previousBackStackEntry != null) {
                 {
                     IconButton(onClick = { navController.navigateUp() }) {
