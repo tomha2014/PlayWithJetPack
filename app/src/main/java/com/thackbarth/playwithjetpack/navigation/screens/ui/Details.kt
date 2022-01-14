@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -47,7 +46,9 @@ fun DetailsScreen(navController: NavController, id: Int?, vm: MainViewModel ) {
             // TMH Fix This!
             // I would not be in here if there was not a product selected,
             // but bad
-            DetailsContent(product = product!!)
+            if (product != null) {
+                DetailsContent(product = product)
+            }
         }
     )
 }
@@ -71,7 +72,7 @@ fun DetailsContent(product: Product) {
             )
         }
         Text(text = "Details go here: ${product.title}")
-
+        Spacer(Modifier.size(20.dp))
         Button(
             onClick = { /* ... */ },
             // Uses ButtonDefaults.ContentPadding by default
