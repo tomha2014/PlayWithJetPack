@@ -60,7 +60,6 @@ fun HomeScreenContent(navController: NavController, vm: MainViewModel) {
         vm.productList.collectAsState().value
     )
 
-
     Surface(color = Color.White) {
         Column() {
             vm.categoryList.value?.let {
@@ -68,7 +67,6 @@ fun HomeScreenContent(navController: NavController, vm: MainViewModel) {
                     buttonSelected = {
                     vm.filterCategory = it
                         vm.selectedTabIndex = getCategoryIndex(vm.categoryList.value!!,it)
-                        Log.d("debug", vm.selectedTabIndex.toString())
                 })
             }
             DisplayItemInRows(navController = navController, lst)
