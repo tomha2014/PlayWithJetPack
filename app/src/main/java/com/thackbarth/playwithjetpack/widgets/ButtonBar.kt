@@ -14,9 +14,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ButtonBar(buttons: List<String>, buttonSelected:(result:String)->Unit) {
+fun ButtonBar(buttons: List<String>,selectedTabIndex:Int = 0, buttonSelected:(result:String)->Unit) {
     Row() {
-        ScrollableTabRow(selectedTabIndex = 0, modifier = Modifier.fillMaxWidth()) {
+        ScrollableTabRow(selectedTabIndex = selectedTabIndex, modifier = Modifier.fillMaxWidth()) {
             for (category in buttons) {
                 Text(
 

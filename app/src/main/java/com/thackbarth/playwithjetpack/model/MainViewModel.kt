@@ -34,6 +34,7 @@ constructor(
 
 
     var filterCategory: String by mutableStateOf(Constants.EVERYTHING)
+    var selectedTabIndex: Int by mutableStateOf(1)
 
     val productList = MutableStateFlow<List<Product>>(emptyList())
     var errorMessage: String by mutableStateOf("")
