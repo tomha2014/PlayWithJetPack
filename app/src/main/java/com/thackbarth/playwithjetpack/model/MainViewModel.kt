@@ -39,10 +39,17 @@ constructor(
     var errorMessage: String by mutableStateOf("")
     val categoryList = MutableLiveData<List<String>>(emptyList())
 
-    val shoppingCart = MutableLiveData<List<CartItem>>(emptyList())
+    val shoppingCart: MutableLiveData<ArrayList<CartItem>> = MutableLiveData()
 
     init {
         Log.d(Constants.TAG, "init")
+    }
+
+    fun addProductToShoppingList(productId: Int) {
+        if (shoppingCart.value == null){
+            shoppingCart.value = ArrayList()
+        }
+        shoppingCart.value?.add(CartItem(productID = productId))
     }
 
     fun loadAllData(){

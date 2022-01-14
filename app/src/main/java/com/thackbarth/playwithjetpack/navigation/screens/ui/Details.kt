@@ -5,10 +5,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -28,17 +30,25 @@ fun DetailsScreen(navController: NavController, id: Int?, vm: MainViewModel ) {
         topBar = {
             TopAppBar(
                 title = { Text(text = "Product Details") },
-                navigationIcon = if (navController.previousBackStackEntry != null) {
-                    {
+                actions = {
+                    if (vm.shoppingCart.value!= null) {
+                        if (vm.shoppingCart.value!!.size > 0) {
+                            IconButton(onClick = { /*TODO*/ }) {
+                                Icon(
+                                    imageVector = Icons.Default.ShoppingCart,
+                                    contentDescription = "ShoppingCart"
+                                )
+                            }
+                        }
+                    }
+                },
+                navigationIcon = {
                         IconButton(onClick = { navController.navigateUp() }) {
                             Icon(
                                 imageVector = Icons.Filled.ArrowBack,
                                 contentDescription = "Back"
                             )
                         }
-                    }
-                } else {
-                    null
                 }
             )
         },
@@ -47,7 +57,7 @@ fun DetailsScreen(navController: NavController, id: Int?, vm: MainViewModel ) {
             // I would not be in here if there was not a product selected,
             // but bad
             if (product != null) {
-                DetailsContent(product = product)
+                DetailsContent(product = product, vm)
             }
         }
     )
@@ -55,7 +65,7 @@ fun DetailsScreen(navController: NavController, id: Int?, vm: MainViewModel ) {
 
 @ExperimentalCoilApi
 @Composable
-fun DetailsContent(product: Product) {
+fun DetailsContent(product: Product, mainViewModel: MainViewModel) {
 
     Column(
         modifier = Modifier
@@ -74,7 +84,7 @@ fun DetailsContent(product: Product) {
         Text(text = "Details go here: ${product.title}")
         Spacer(Modifier.size(20.dp))
         Button(
-            onClick = { /* ... */ },
+            onClick = { mainViewModel.addProductToShoppingList(product.id) },
             // Uses ButtonDefaults.ContentPadding by default
             contentPadding = PaddingValues(
                 start = 20.dp,
