@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.thackbarth.playwithjetpack.data.ProductDatabase
 import com.thackbarth.playwithjetpack.data.ProductDatabaseDao
+
 import com.thackbarth.playwithjetpack.model.Product
 import com.thackbarth.playwithjetpack.network.StoreApi
 import dagger.Module
@@ -36,6 +37,17 @@ object AppModule {
         "Product_table")
         .fallbackToDestructiveMigration()
         .build()
+
+
+//    @Singleton
+//    @Provides
+//    fun provideShoppingCartDatabase(@ApplicationContext context: Context): ShoppingCartDatabase
+//            = Room.databaseBuilder(
+//        context,
+//        ShoppingCartDatabase::class.java,
+//        "shopping_Cart")
+//        .fallbackToDestructiveMigration()
+//        .build()
 
 
 }

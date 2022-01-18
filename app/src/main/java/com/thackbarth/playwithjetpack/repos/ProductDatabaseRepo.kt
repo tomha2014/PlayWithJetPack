@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 
-class DatabaseRepo @Inject constructor(private val productDatabaseDao: ProductDatabaseDao) {
+class ProductDatabaseRepo @Inject constructor(private val productDatabaseDao: ProductDatabaseDao) {
 
     suspend fun addProduct(product: Product) = productDatabaseDao.insert(product)
     suspend fun updateProduct(product: Product) = productDatabaseDao.update(product)

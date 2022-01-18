@@ -10,7 +10,8 @@ import androidx.lifecycle.viewModelScope
 import com.thackbarth.playwithjetpack.Constants
 import com.thackbarth.playwithjetpack.model.CartItem
 import com.thackbarth.playwithjetpack.model.Product
-import com.thackbarth.playwithjetpack.repos.DatabaseRepo
+import com.thackbarth.playwithjetpack.repos.ProductDatabaseRepo
+import com.thackbarth.playwithjetpack.repos.ShoppingCartRepo
 import com.thackbarth.playwithjetpack.repos.StoreRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +26,8 @@ import javax.inject.Inject
 class HomeScreenViewModel
 @Inject
 constructor(
-    private val repository: DatabaseRepo,
+    private val repository: ProductDatabaseRepo,
+//    private val cartRepo: ShoppingCartRepo,
     private val storeRepo: StoreRepo
 ) : ViewModel() {
 
@@ -36,19 +38,24 @@ constructor(
     var errorMessage: String by mutableStateOf("")
     val categoryList = MutableLiveData<List<String>>(emptyList())
 
-    val shoppingCart: MutableLiveData<ArrayList<CartItem>> = MutableLiveData()
+    var cartSize: Int by mutableStateOf(0)
 
     init {
         Log.d(Constants.TAG, "init")
     }
 
-    fun addProductToShoppingList(productId: Int) {
-        if (shoppingCart.value == null){
-            shoppingCart.value = ArrayList()
+    fun addProductToShoppingCart(productId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+//            cartRepo.addItem(CartItem(productID = productId, id = 1))
         }
-        shoppingCart.value?.add(CartItem(productID = productId))
+        getShoppingCartSize()
     }
 
+    fun getShoppingCartSize() {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            cartSize = cartRepo.count()
+//        }
+    }
     fun loadAllData(){
 
         viewModelScope.launch(Dispatchers.IO) {

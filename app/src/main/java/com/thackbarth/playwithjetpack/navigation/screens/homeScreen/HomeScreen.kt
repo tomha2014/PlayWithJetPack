@@ -29,8 +29,8 @@ fun HomeScreen(navController: NavController, viewModel: HomeScreenViewModel) {
         TopAppBar(
             title = { Text(text = "What Not Store Front") },
             actions = {
-                if (viewModel.shoppingCart.value!= null) {
-                    if (viewModel.shoppingCart.value!!.size > 0) {
+
+                    if (viewModel.cartSize > 0) {
                         IconButton(onClick = {
                             navController.navigate(route = ApplicationScreens.ShoppingCart.name )
                         }) {
@@ -40,7 +40,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeScreenViewModel) {
                             )
                         }
                     }
-                }
+
             },
             navigationIcon = if (navController.previousBackStackEntry != null) {
                 {

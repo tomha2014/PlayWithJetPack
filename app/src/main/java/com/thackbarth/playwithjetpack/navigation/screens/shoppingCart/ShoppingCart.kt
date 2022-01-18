@@ -47,15 +47,15 @@ fun ShoppingCart(navController: NavController, mainViewModel: HomeScreenViewMode
 @Composable
 fun ShoppingCartScreenContent(navController: NavController, viewModel: HomeScreenViewModel) {
 
-    val lst = viewModel.shoppingCart.value?.toList()
-
-    Surface(color = Color.White) {
-        Column() {
-            if (lst != null) {
-                DisplayShoppingCartRow(navController = navController, lst)
-            }
-        }
-    }
+//    val lst = viewModel.shoppingCart.value?.toList()
+//
+//    Surface(color = Color.White) {
+//        Column() {
+//            if (lst != null) {
+//                DisplayShoppingCartRow(navController = navController, lst)
+//            }
+//        }
+//    }
 }
 
 @InternalCoroutinesApi

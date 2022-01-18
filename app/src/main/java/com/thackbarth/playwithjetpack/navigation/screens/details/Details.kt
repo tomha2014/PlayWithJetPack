@@ -30,16 +30,16 @@ fun DetailsScreen(navController: NavController, id: Int?, vm: HomeScreenViewMode
             TopAppBar(
                 title = { Text(text = "Product Details") },
                 actions = {
-                    if (vm.shoppingCart.value!= null) {
-                        if (vm.shoppingCart.value!!.size > 0) {
-                            IconButton(onClick = { /*TODO*/ }) {
-                                Icon(
-                                    imageVector = Icons.Default.ShoppingCart,
-                                    contentDescription = "ShoppingCart"
-                                )
-                            }
-                        }
-                    }
+//                    if (vm.shoppingCart.value!= null) {
+//                        if (vm.shoppingCart.value!!.size > 0) {
+//                            IconButton(onClick = { /*TODO*/ }) {
+//                                Icon(
+//                                    imageVector = Icons.Default.ShoppingCart,
+//                                    contentDescription = "ShoppingCart"
+//                                )
+//                            }
+//                        }
+//                    }
                 },
                 navigationIcon = {
                         IconButton(onClick = { navController.navigateUp() }) {
@@ -83,7 +83,7 @@ fun DetailsContent(product: Product, mainViewModel: HomeScreenViewModel) {
         Text(text = "Details go here: ${product.title}")
         Spacer(Modifier.size(20.dp))
         Button(
-            onClick = { mainViewModel.addProductToShoppingList(product.id) },
+            onClick = { mainViewModel.addProductToShoppingCart(product.id) },
             // Uses ButtonDefaults.ContentPadding by default
             contentPadding = PaddingValues(
                 start = 20.dp,

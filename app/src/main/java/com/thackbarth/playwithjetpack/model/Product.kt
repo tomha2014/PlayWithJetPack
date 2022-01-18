@@ -21,29 +21,7 @@ https://fakestoreapi.com/products
     },
  */
 
-//data class ProductAndRating(
-//    @Embedded val rating: Rating,
-//    @Relation(
-//        parentColumn = "id",
-//        entityColumn =
-//    )
-//
-//    val rating: Rating
-//
-//
-//)
 
-//@Entity(tableName = "Product_rating" )
-//data class Rating(
-//    @PrimaryKey
-//    val id: UUID = UUID.randomUUID(),
-//
-//    @ColumnInfo(name = "rate" )
-//    val rate: Float,
-//
-//    @ColumnInfo(name = "count" )
-//    val count: Int
-//)
 
 @Entity(tableName = "Product_table" )
 data class Product(
