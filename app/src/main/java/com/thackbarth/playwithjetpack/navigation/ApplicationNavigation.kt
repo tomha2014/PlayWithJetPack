@@ -11,6 +11,7 @@ import com.thackbarth.playwithjetpack.navigation.screens.ApplicationScreens
 import com.thackbarth.playwithjetpack.navigation.screens.ui.DetailsScreen
 import com.thackbarth.playwithjetpack.navigation.screens.ui.HomeScreen
 import com.thackbarth.playwithjetpack.navigation.screens.ui.ShoppingCart
+import com.thackbarth.playwithjetpack.navigation.screens.ui.SplashScreen
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @InternalCoroutinesApi
@@ -19,7 +20,12 @@ fun ApplicationNavigation(viewModel: MainViewModel){
     val navController = rememberNavController()
 
     NavHost(navController = navController,
-        startDestination = ApplicationScreens.HomeScreen.name){
+        startDestination = ApplicationScreens.SplashScreen.name){
+
+        composable(ApplicationScreens.SplashScreen.name){
+            SplashScreen( navController)
+        }
+
 
         composable(ApplicationScreens.HomeScreen.name){
             HomeScreen( navController, viewModel)
