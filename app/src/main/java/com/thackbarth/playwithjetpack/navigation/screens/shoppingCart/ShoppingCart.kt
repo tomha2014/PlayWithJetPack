@@ -1,4 +1,4 @@
-package com.thackbarth.playwithjetpack.navigation.screens.ui
+package com.thackbarth.playwithjetpack.navigation.screens.shoppingCart
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
@@ -11,13 +11,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import com.thackbarth.playwithjetpack.composables.CartRow
 import com.thackbarth.playwithjetpack.model.CartItem
-import com.thackbarth.playwithjetpack.model.MainViewModel
-import com.thackbarth.playwithjetpack.navigation.screens.ApplicationScreens
+import com.thackbarth.playwithjetpack.navigation.screens.homeScreen.HomeScreenViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @InternalCoroutinesApi
 @Composable
-fun ShoppingCart(navController: NavController, mainViewModel: MainViewModel) {
+fun ShoppingCart(navController: NavController, mainViewModel: HomeScreenViewModel) {
 
 
     Scaffold(topBar = {
@@ -46,7 +45,7 @@ fun ShoppingCart(navController: NavController, mainViewModel: MainViewModel) {
 
 @InternalCoroutinesApi
 @Composable
-fun ShoppingCartScreenContent(navController: NavController, viewModel: MainViewModel) {
+fun ShoppingCartScreenContent(navController: NavController, viewModel: HomeScreenViewModel) {
 
     val lst = viewModel.shoppingCart.value?.toList()
 

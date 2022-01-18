@@ -1,4 +1,4 @@
-package com.thackbarth.playwithjetpack.navigation.screens.ui
+package com.thackbarth.playwithjetpack.navigation.screens.splash
 
 import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.Animatable
@@ -18,7 +18,6 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.thackbarth.playwithjetpack.model.MainViewModel
 import com.thackbarth.playwithjetpack.navigation.screens.ApplicationScreens
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.delay

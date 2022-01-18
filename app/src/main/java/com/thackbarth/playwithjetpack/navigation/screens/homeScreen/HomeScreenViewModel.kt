@@ -1,7 +1,6 @@
-package com.thackbarth.playwithjetpack.model
+package com.thackbarth.playwithjetpack.navigation.screens.homeScreen
 
 import android.util.Log
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -9,8 +8,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thackbarth.playwithjetpack.Constants
-import com.thackbarth.playwithjetpack.network.StoreApi
+import com.thackbarth.playwithjetpack.model.CartItem
+import com.thackbarth.playwithjetpack.model.Product
 import com.thackbarth.playwithjetpack.repos.DatabaseRepo
+import com.thackbarth.playwithjetpack.repos.StoreRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,20 +21,16 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-data class Photo (
-    var title: String
-)
-
 @HiltViewModel
-class MainViewModel
+class HomeScreenViewModel
 @Inject
 constructor(
     private val repository: DatabaseRepo,
-    private val storeApi: StoreApi
+    private val storeRepo: StoreRepo
 ) : ViewModel() {
 
     var filterCategory: String by mutableStateOf(Constants.EVERYTHING)
-    var selectedTabIndex: Int by mutableStateOf(0)
+    var filterItemIndex: Int by mutableStateOf(0)
 
     val productList = MutableStateFlow<List<Product>>(emptyList())
     var errorMessage: String by mutableStateOf("")
@@ -62,17 +59,20 @@ constructor(
                     if (productList.value.isEmpty()){
                         Log.d(Constants.TAG, "database was empty of stuff, go get new stuff from server")
                         try {
-                            val products = storeApi.get()
-                            Log.d(Constants.TAG, "data Loaded")
+
+                            val products = storeRepo.getListOfProducts().data
+                            if (products != null) {
+                                Log.d(Constants.TAG, "data Loaded")
 
 
-                            // Save each item in the database for next time.
-                            products.forEach{
-                                repository.addProduct(it)
+                                // Save each item in the database for next time.
+                                products.forEach {
+                                    repository.addProduct(it)
+                                }
+                                productList.value = products
+
+                                buildCategoryList()
                             }
-
-                            productList.value = products
-                            buildCategoryList()
                         } catch (e: Exception) {
                             errorMessage = e.message.toString()
                         }

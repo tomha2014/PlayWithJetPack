@@ -1,28 +1,27 @@
-package com.thackbarth.playwithjetpack.navigation.screens.ui
+package com.thackbarth.playwithjetpack.navigation.screens.details
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import com.thackbarth.playwithjetpack.model.MainViewModel
+
 import com.thackbarth.playwithjetpack.model.Product
+import com.thackbarth.playwithjetpack.navigation.screens.homeScreen.HomeScreenViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @InternalCoroutinesApi
 @Composable
-fun DetailsScreen(navController: NavController, id: Int?, vm: MainViewModel ) {
+fun DetailsScreen(navController: NavController, id: Int?, vm: HomeScreenViewModel) {
 
     val product = id?.let { vm.findProductByID(it) }
 
@@ -65,7 +64,7 @@ fun DetailsScreen(navController: NavController, id: Int?, vm: MainViewModel ) {
 
 @ExperimentalCoilApi
 @Composable
-fun DetailsContent(product: Product, mainViewModel: MainViewModel) {
+fun DetailsContent(product: Product, mainViewModel: HomeScreenViewModel) {
 
     Column(
         modifier = Modifier
