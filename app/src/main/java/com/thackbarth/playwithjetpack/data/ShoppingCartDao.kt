@@ -26,5 +26,8 @@ interface ShoppingCartDao {
     @Delete
     suspend fun deleteItem(item: CartItem)
 
+    @Query("SELECT COUNT(*) from $CART_TABLE_NAME")
+    fun count(): Int
+
 
 }

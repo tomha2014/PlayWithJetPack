@@ -20,6 +20,9 @@ class ShoppingCartRepo @Inject constructor(private val dao: ShoppingCartDao){
     suspend fun deleteAllItems() = dao.deleteAll()
     suspend fun deleteItem(item: CartItem) = dao.deleteItem(item)
 
+    suspend fun getCount():Int{
+        return dao.count()
+    }
 
 
 }

@@ -42,19 +42,21 @@ constructor(
 
     init {
         Log.d(Constants.TAG, "init")
+        getShoppingCartSize()
     }
 
     fun addProductToShoppingCart(productId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-//            cartRepo.addItem(CartItem(productID = productId, id = 1))
+            cartRepo.addItem(CartItem(productID = productId, id = 1))
         }
         getShoppingCartSize()
     }
 
     fun getShoppingCartSize() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            cartSize = cartRepo.count()
-//        }
+        viewModelScope.launch(Dispatchers.IO) {
+            cartSize = cartRepo.getCount()
+            Log.d("debug", "Cart Size: $cartSize")
+        }
     }
     fun loadAllData(){
 
