@@ -11,12 +11,16 @@ import com.thackbarth.playwithjetpack.navigation.screens.details.DetailsScreen
 import com.thackbarth.playwithjetpack.navigation.screens.homeScreen.HomeScreen
 import com.thackbarth.playwithjetpack.navigation.screens.homeScreen.HomeScreenViewModel
 import com.thackbarth.playwithjetpack.navigation.screens.shoppingCart.ShoppingCart
+import com.thackbarth.playwithjetpack.navigation.screens.shoppingCart.ShoppingCartViewModel
 import com.thackbarth.playwithjetpack.navigation.screens.splash.SplashScreen
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @InternalCoroutinesApi
 @Composable
-fun ApplicationNavigation(viewModel: HomeScreenViewModel){
+fun ApplicationNavigation(
+    viewModel: HomeScreenViewModel,
+    shoppingCartViewModel: ShoppingCartViewModel
+){
 
     val navController = rememberNavController()
 
@@ -33,7 +37,11 @@ fun ApplicationNavigation(viewModel: HomeScreenViewModel){
         }
 
         composable(ApplicationScreens.ShoppingCart.name){
-            ShoppingCart( navController, viewModel)
+//            val shoppingCartViewModel = hiltViewModel<ShoppingCartViewModel>()
+
+//            val shoppingCartViewModel: ShoppingCartViewModel by viewModels()
+
+            ShoppingCart( navController, shoppingCartViewModel = shoppingCartViewModel)
         }
 
         composable(ApplicationScreens.DetailsScreen.name+"/{photoId}",

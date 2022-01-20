@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.thackbarth.playwithjetpack.composables.CartRow
 import com.thackbarth.playwithjetpack.model.CartItem
@@ -16,7 +17,9 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 @InternalCoroutinesApi
 @Composable
-fun ShoppingCart(navController: NavController, mainViewModel: HomeScreenViewModel) {
+fun ShoppingCart(navController: NavController,
+                 shoppingCartViewModel: ShoppingCartViewModel) {
+
 
 
     Scaffold(topBar = {
@@ -38,24 +41,25 @@ fun ShoppingCart(navController: NavController, mainViewModel: HomeScreenViewMode
         )
     },
         content = {
-            ShoppingCartScreenContent( navController, mainViewModel)
+            ShoppingCartScreenContent( navController, shoppingCartViewModel)
         })
 
 }
 
 @InternalCoroutinesApi
 @Composable
-fun ShoppingCartScreenContent(navController: NavController, viewModel: HomeScreenViewModel) {
+fun ShoppingCartScreenContent(navController: NavController,
+                              viewModel: ShoppingCartViewModel) {
 
-//    val lst = viewModel.shoppingCart.value?.toList()
-//
-//    Surface(color = Color.White) {
-//        Column() {
-//            if (lst != null) {
-//                DisplayShoppingCartRow(navController = navController, lst)
-//            }
-//        }
-//    }
+    val lst = viewModel.cartItemList.value
+
+    Surface(color = Color.White) {
+        Column() {
+            if (lst != null) {
+                DisplayShoppingCartRow(navController = navController, lst)
+            }
+        }
+    }
 }
 
 @InternalCoroutinesApi
