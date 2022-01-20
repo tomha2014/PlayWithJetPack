@@ -1,26 +1,27 @@
-package com.thackbarth.playwithjetpack.navigation.screens.ui
+package com.thackbarth.playwithjetpack.navigation.screens.details
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import com.thackbarth.playwithjetpack.model.MainViewModel
+
 import com.thackbarth.playwithjetpack.model.Product
+import com.thackbarth.playwithjetpack.navigation.screens.homeScreen.HomeScreenViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @InternalCoroutinesApi
 @Composable
-fun DetailsScreen(navController: NavController, id: Int?, vm: MainViewModel = hiltViewModel()) {
+fun DetailsScreen(navController: NavController, id: Int?, vm: HomeScreenViewModel) {
 
     val product = id?.let { vm.findProductByID(it) }
 
@@ -28,17 +29,25 @@ fun DetailsScreen(navController: NavController, id: Int?, vm: MainViewModel = hi
         topBar = {
             TopAppBar(
                 title = { Text(text = "Product Details") },
-                navigationIcon = if (navController.previousBackStackEntry != null) {
-                    {
+                actions = {
+//                    if (vm.shoppingCart.value!= null) {
+//                        if (vm.shoppingCart.value!!.size > 0) {
+//                            IconButton(onClick = { /*TODO*/ }) {
+//                                Icon(
+//                                    imageVector = Icons.Default.ShoppingCart,
+//                                    contentDescription = "ShoppingCart"
+//                                )
+//                            }
+//                        }
+//                    }
+                },
+                navigationIcon = {
                         IconButton(onClick = { navController.navigateUp() }) {
                             Icon(
                                 imageVector = Icons.Filled.ArrowBack,
                                 contentDescription = "Back"
                             )
                         }
-                    }
-                } else {
-                    null
                 }
             )
         },
@@ -46,14 +55,16 @@ fun DetailsScreen(navController: NavController, id: Int?, vm: MainViewModel = hi
             // TMH Fix This!
             // I would not be in here if there was not a product selected,
             // but bad
-            DetailsContent(product = product!!)
+            if (product != null) {
+                DetailsContent(product = product, vm)
+            }
         }
     )
 }
 
 @ExperimentalCoilApi
 @Composable
-fun DetailsContent(product: Product) {
+fun DetailsContent(product: Product, mainViewModel: HomeScreenViewModel) {
 
     Column(
         modifier = Modifier
@@ -70,6 +81,26 @@ fun DetailsContent(product: Product) {
             )
         }
         Text(text = "Details go here: ${product.title}")
+        Spacer(Modifier.size(20.dp))
+        Button(
+            onClick = { mainViewModel.addProductToShoppingCart(product.id) },
+            // Uses ButtonDefaults.ContentPadding by default
+            contentPadding = PaddingValues(
+                start = 20.dp,
+                top = 12.dp,
+                end = 20.dp,
+                bottom = 12.dp
+            )
+        ) {
+            // Inner content including an icon and a text label
+            Icon(
+                Icons.Filled.ShoppingCart,
+                contentDescription = "Favorite",
+                modifier = Modifier.size(ButtonDefaults.IconSize)
+            )
+            Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+            Text("Add to cart")
+        }
     }
 }
 

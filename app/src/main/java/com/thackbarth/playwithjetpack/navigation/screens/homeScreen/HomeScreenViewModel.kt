@@ -1,7 +1,6 @@
-package com.thackbarth.playwithjetpack.model
+package com.thackbarth.playwithjetpack.navigation.screens.homeScreen
 
 import android.util.Log
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -9,46 +8,78 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thackbarth.playwithjetpack.Constants
-import com.thackbarth.playwithjetpack.network.StoreApi
+import com.thackbarth.playwithjetpack.model.CartItem
+import com.thackbarth.playwithjetpack.model.Product
 import com.thackbarth.playwithjetpack.repos.DatabaseRepo
+import com.thackbarth.playwithjetpack.repos.StoreRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-data class Photo (
-    var title: String
-)
-
 @HiltViewModel
-class MainViewModel
+class HomeScreenViewModel
 @Inject
 constructor(
     private val repository: DatabaseRepo,
-    private val storeApi: StoreApi
+//    private val cartRepo: ShoppingCartRepo,
+    private val storeRepo: StoreRepo
 ) : ViewModel() {
 
-
     var filterCategory: String by mutableStateOf(Constants.EVERYTHING)
-    var selectedTabIndex: Int by mutableStateOf(1)
-
+    var filterItemIndex: Int by mutableStateOf(0)
     val productList = MutableStateFlow<List<Product>>(emptyList())
+    val cartList = MutableStateFlow<List<CartItem>>(emptyList())
     var errorMessage: String by mutableStateOf("")
     val categoryList = MutableLiveData<List<String>>(emptyList())
-
-    var photos: MutableLiveData<ArrayList<Photo>> = MutableLiveData()
-
+    var cartSize: Int by mutableStateOf(0)
 
     init {
         Log.d(Constants.TAG, "init")
+        loadShoppingCart()
+        loadAllData()
     }
 
-    fun loadAllData(){
+    private fun loadShoppingCart() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getAllItems().distinctUntilChanged().collect { stuff ->
+                if (!stuff.isNullOrEmpty()) {
+                    cartList.value = stuff
+                }
+            }
+        }
+    }
 
+    fun addProductToShoppingCart(productId: Int) {
+
+        viewModelScope.launch(Dispatchers.IO) {
+
+            // if cartitem exists bump up the quantity by 1.
+            // Not good logic as the user may want to add 2,
+            // but this is just a exercise application
+
+            val item = cartList.value.firstOrNull{
+                it.productID == productId
+            }
+
+            if (item == null) {
+                repository.addItem(CartItem(productID = productId))
+            }else{
+                repository.updateItem(CartItem(item.id, item.productID, item.quantity+1))
+            }
+
+        }
+        // refresh the cart
+        loadShoppingCart()
+    }
+
+
+    fun loadAllData(){
         viewModelScope.launch(Dispatchers.IO) {
             repository.getAllProducts1().distinctUntilChanged().collect {
                     stuff ->
@@ -57,17 +88,20 @@ constructor(
                     if (productList.value.isEmpty()){
                         Log.d(Constants.TAG, "database was empty of stuff, go get new stuff from server")
                         try {
-                            val products = storeApi.get()
-                            Log.d(Constants.TAG, "data Loaded")
+
+                            val products = storeRepo.getListOfProducts().data
+                            if (products != null) {
+                                Log.d(Constants.TAG, "data Loaded")
 
 
-                            // Save each item in the database for next time.
-                            products.forEach{
-                                repository.addProduct(it)
+                                // Save each item in the database for next time.
+                                products.forEach {
+                                    repository.addProduct(it)
+                                }
+                                productList.value = products
+
+                                buildCategoryList()
                             }
-
-                            productList.value = products
-                            buildCategoryList()
                         } catch (e: Exception) {
                             errorMessage = e.message.toString()
                         }
@@ -80,7 +114,7 @@ constructor(
         }
     }
 
-    private fun buildCategoryList() {
+    fun buildCategoryList() {
         val lst = productList.value
         val cats = ArrayList<String>()
         cats.add("Everything")
@@ -92,9 +126,9 @@ constructor(
          categoryList.postValue(cats)
     }
 
-    fun getAllProducts(): List<Product>{
-        return productList.value
-    }
+//    fun getAllProducts(): List<Product>{
+//        return productList.value
+//    }
 
     fun findProductByID(id: Int): Product? {
 
@@ -102,5 +136,6 @@ constructor(
 
         return productList.value.first { it.id == id }
     }
+
 
 }

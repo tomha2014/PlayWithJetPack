@@ -1,20 +1,20 @@
-package com.thackbarth.playwithjetpack.navigation.screens.ui
+package com.thackbarth.playwithjetpack.navigation.screens.homeScreen
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import com.thackbarth.playwithjetpack.Constants
 import com.thackbarth.playwithjetpack.composables.ProductRow
 import com.thackbarth.playwithjetpack.filterListForString
 import com.thackbarth.playwithjetpack.getCategoryIndex
-import com.thackbarth.playwithjetpack.model.MainViewModel
 import com.thackbarth.playwithjetpack.model.Product
 import com.thackbarth.playwithjetpack.navigation.screens.ApplicationScreens
 import com.thackbarth.playwithjetpack.widgets.ButtonBar
@@ -23,11 +23,25 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 @InternalCoroutinesApi
 @Composable
-fun HomeScreen(navController: NavController, viewModel: MainViewModel) {
+fun HomeScreen(navController: NavController, viewModel: HomeScreenViewModel) {
 
     Scaffold(topBar = {
         TopAppBar(
-            title = { Text(text = "Row Details") },
+            title = { Text(text = "What Not Store Front") },
+            actions = {
+
+                    if (viewModel.cartList.value.isNotEmpty()) {
+                        IconButton(onClick = {
+                            navController.navigate(route = ApplicationScreens.ShoppingCart.name )
+                        }) {
+                            Icon(
+                                imageVector = Icons.Default.ShoppingCart,
+                                contentDescription = "ShoppingCart"
+                            )
+                        }
+                    }
+
+            },
             navigationIcon = if (navController.previousBackStackEntry != null) {
                 {
                     IconButton(onClick = { navController.navigateUp() }) {
@@ -49,25 +63,23 @@ fun HomeScreen(navController: NavController, viewModel: MainViewModel) {
 
 @InternalCoroutinesApi
 @Composable
-fun HomeScreenContent(navController: NavController, vm: MainViewModel) {
+fun HomeScreenContent(navController: NavController, homeScreenViewModel: HomeScreenViewModel) {
 
     // NOTE TO SELF!!! vm.productList.collectAsState().value WORKS!!
 
     val lst = filterListForString(
-        vm.filterCategory,
+        homeScreenViewModel.filterCategory,
         Constants.EVERYTHING,
-        vm.productList.collectAsState().value
+        homeScreenViewModel.productList.collectAsState().value
     )
-
 
     Surface(color = Color.White) {
         Column() {
-            vm.categoryList.value?.let {
-                ButtonBar(buttons = it, selectedTabIndex = vm.selectedTabIndex,
+            homeScreenViewModel.categoryList.value?.let {
+                ButtonBar(buttons = it, selectedTabIndex = homeScreenViewModel.filterItemIndex,
                     buttonSelected = {
-                    vm.filterCategory = it
-                        vm.selectedTabIndex = getCategoryIndex(vm.categoryList.value!!,it)
-                        Log.d("debug", vm.selectedTabIndex.toString())
+                    homeScreenViewModel.filterCategory = it
+                        homeScreenViewModel.filterItemIndex = getCategoryIndex(homeScreenViewModel.categoryList.value!!,it)
                 })
             }
             DisplayItemInRows(navController = navController, lst)

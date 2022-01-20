@@ -2,8 +2,11 @@ package com.thackbarth.playwithjetpack.di
 
 import android.content.Context
 import androidx.room.Room
+import com.thackbarth.playwithjetpack.Constants
 import com.thackbarth.playwithjetpack.data.ProductDatabase
 import com.thackbarth.playwithjetpack.data.ProductDatabaseDao
+import com.thackbarth.playwithjetpack.model.CartItem
+
 import com.thackbarth.playwithjetpack.model.Product
 import com.thackbarth.playwithjetpack.network.StoreApi
 import dagger.Module
@@ -33,9 +36,25 @@ object AppModule {
             = Room.databaseBuilder(
         context,
         ProductDatabase::class.java,
-        "Product_table")
+        Constants.TABLE_NAME)
         .fallbackToDestructiveMigration()
         .build()
+
+
+//    @Singleton
+//    @Provides
+//    fun provideShoppingCartDao(shoppingCartDatabase: ShoppingCartDatabase): ShoppingCartDao
+//            = shoppingCartDatabase.shoppingCartDao()
+
+//    @Singleton
+//    @Provides
+//    fun provideShoppingCartDatabase(@ApplicationContext context: Context): ShoppingCartDatabase
+//            = Room.databaseBuilder(
+//        context,
+//        ShoppingCartDatabase::class.java,
+//        Constants.CART_TABLE_NAME)
+//        .fallbackToDestructiveMigration()
+//        .build()
 
 
 }

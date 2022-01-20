@@ -1,20 +1,14 @@
 package com.thackbarth.playwithjetpack
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ExperimentalComposeApi
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.thackbarth.playwithjetpack.model.MainViewModel
 import com.thackbarth.playwithjetpack.navigation.ApplicationNavigation
-//import com.thackbarth.playwithjetpack.model.PhotoNetworkEntity
+import com.thackbarth.playwithjetpack.navigation.screens.homeScreen.HomeScreenViewModel
+import com.thackbarth.playwithjetpack.navigation.screens.shoppingCart.ShoppingCartViewModel
 import com.thackbarth.playwithjetpack.ui.theme.PlayWithJetPackTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -23,7 +17,8 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: HomeScreenViewModel by viewModels()
+    private val shoppingCartViewModel: ShoppingCartViewModel by viewModels()
 
     @InternalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,16 +27,16 @@ class MainActivity : ComponentActivity() {
         viewModel.loadAllData()
 
         setContent {
-            Content(viewModel)
+            Content(viewModel, shoppingCartViewModel)
         }
     }
 }
 
 @InternalCoroutinesApi
 @Composable
-fun Content(viewModel: MainViewModel) {
+fun Content(viewModel: HomeScreenViewModel, shoppingCartViewModel: ShoppingCartViewModel) {
     PlayWithJetPackTheme {
-        ApplicationNavigation(viewModel = viewModel)
+        ApplicationNavigation(viewModel = viewModel, shoppingCartViewModel)
     }
 }
 
