@@ -27,7 +27,6 @@ class HomeScreenViewModel
 @Inject
 constructor(
     private val repository: DatabaseRepo,
-//    private val cartRepo: ShoppingCartRepo,
     private val storeRepo: StoreRepo
 ) : ViewModel() {
 

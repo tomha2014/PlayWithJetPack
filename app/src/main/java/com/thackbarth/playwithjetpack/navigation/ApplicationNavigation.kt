@@ -11,15 +11,13 @@ import com.thackbarth.playwithjetpack.navigation.screens.details.DetailsScreen
 import com.thackbarth.playwithjetpack.navigation.screens.homeScreen.HomeScreen
 import com.thackbarth.playwithjetpack.navigation.screens.homeScreen.HomeScreenViewModel
 import com.thackbarth.playwithjetpack.navigation.screens.shoppingCart.ShoppingCart
-import com.thackbarth.playwithjetpack.navigation.screens.shoppingCart.ShoppingCartViewModel
 import com.thackbarth.playwithjetpack.navigation.screens.splash.SplashScreen
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @InternalCoroutinesApi
 @Composable
 fun ApplicationNavigation(
-    viewModel: HomeScreenViewModel,
-    shoppingCartViewModel: ShoppingCartViewModel
+    viewModel: HomeScreenViewModel
 ){
 
     val navController = rememberNavController()

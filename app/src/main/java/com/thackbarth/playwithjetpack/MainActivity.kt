@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.thackbarth.playwithjetpack.navigation.ApplicationNavigation
 import com.thackbarth.playwithjetpack.navigation.screens.homeScreen.HomeScreenViewModel
-import com.thackbarth.playwithjetpack.navigation.screens.shoppingCart.ShoppingCartViewModel
 import com.thackbarth.playwithjetpack.ui.theme.PlayWithJetPackTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -18,7 +17,6 @@ import kotlinx.coroutines.InternalCoroutinesApi
 class MainActivity : ComponentActivity() {
 
     private val viewModel: HomeScreenViewModel by viewModels()
-    private val shoppingCartViewModel: ShoppingCartViewModel by viewModels()
 
     @InternalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,16 +25,16 @@ class MainActivity : ComponentActivity() {
         viewModel.loadAllData()
 
         setContent {
-            Content(viewModel, shoppingCartViewModel)
+            Content(viewModel)
         }
     }
 }
 
 @InternalCoroutinesApi
 @Composable
-fun Content(viewModel: HomeScreenViewModel, shoppingCartViewModel: ShoppingCartViewModel) {
+fun Content(viewModel: HomeScreenViewModel) {
     PlayWithJetPackTheme {
-        ApplicationNavigation(viewModel = viewModel, shoppingCartViewModel)
+        ApplicationNavigation(viewModel = viewModel)
     }
 }
 

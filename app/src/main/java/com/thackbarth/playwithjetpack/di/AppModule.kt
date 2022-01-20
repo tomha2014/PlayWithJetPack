@@ -40,21 +40,4 @@ object AppModule {
         .fallbackToDestructiveMigration()
         .build()
 
-
-//    @Singleton
-//    @Provides
-//    fun provideShoppingCartDao(shoppingCartDatabase: ShoppingCartDatabase): ShoppingCartDao
-//            = shoppingCartDatabase.shoppingCartDao()
-
-//    @Singleton
-//    @Provides
-//    fun provideShoppingCartDatabase(@ApplicationContext context: Context): ShoppingCartDatabase
-//            = Room.databaseBuilder(
-//        context,
-//        ShoppingCartDatabase::class.java,
-//        Constants.CART_TABLE_NAME)
-//        .fallbackToDestructiveMigration()
-//        .build()
-
-
 }
