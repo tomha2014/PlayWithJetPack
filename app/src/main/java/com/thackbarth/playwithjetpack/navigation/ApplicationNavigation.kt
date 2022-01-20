@@ -25,7 +25,7 @@ fun ApplicationNavigation(
     val navController = rememberNavController()
 
     NavHost(navController = navController,
-        startDestination = ApplicationScreens.SplashScreen.name){
+        startDestination = ApplicationScreens.HomeScreen.name){
 
         composable(ApplicationScreens.SplashScreen.name){
             SplashScreen( navController)

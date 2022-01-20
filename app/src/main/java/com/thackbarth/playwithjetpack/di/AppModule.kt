@@ -5,8 +5,6 @@ import androidx.room.Room
 import com.thackbarth.playwithjetpack.Constants
 import com.thackbarth.playwithjetpack.data.ProductDatabase
 import com.thackbarth.playwithjetpack.data.ProductDatabaseDao
-import com.thackbarth.playwithjetpack.data.ShoppingCartDao
-import com.thackbarth.playwithjetpack.data.ShoppingCartDatabase
 import com.thackbarth.playwithjetpack.model.CartItem
 
 import com.thackbarth.playwithjetpack.model.Product
@@ -34,11 +32,6 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideShoppingCartDao(shoppingCartDatabase: ShoppingCartDatabase): ShoppingCartDao
-            = shoppingCartDatabase.shoppingCartDao()
-
-    @Singleton
-    @Provides
     fun provideAppDatabase(@ApplicationContext context: Context): ProductDatabase
             = Room.databaseBuilder(
         context,
@@ -48,16 +41,20 @@ object AppModule {
         .build()
 
 
+//    @Singleton
+//    @Provides
+//    fun provideShoppingCartDao(shoppingCartDatabase: ShoppingCartDatabase): ShoppingCartDao
+//            = shoppingCartDatabase.shoppingCartDao()
 
-    @Singleton
-    @Provides
-    fun provideShoppingCartDatabase(@ApplicationContext context: Context): ShoppingCartDatabase
-            = Room.databaseBuilder(
-        context,
-        ShoppingCartDatabase::class.java,
-        Constants.CART_TABLE_NAME)
-        .fallbackToDestructiveMigration()
-        .build()
+//    @Singleton
+//    @Provides
+//    fun provideShoppingCartDatabase(@ApplicationContext context: Context): ShoppingCartDatabase
+//            = Room.databaseBuilder(
+//        context,
+//        ShoppingCartDatabase::class.java,
+//        Constants.CART_TABLE_NAME)
+//        .fallbackToDestructiveMigration()
+//        .build()
 
 
 }

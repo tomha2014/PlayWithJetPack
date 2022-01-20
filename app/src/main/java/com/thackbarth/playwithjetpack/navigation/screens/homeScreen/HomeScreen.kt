@@ -30,7 +30,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeScreenViewModel) {
             title = { Text(text = "What Not Store Front") },
             actions = {
 
-                    if (viewModel.cartSize > 0) {
+                    if (viewModel.cartList.value.isNotEmpty()) {
                         IconButton(onClick = {
                             navController.navigate(route = ApplicationScreens.ShoppingCart.name )
                         }) {
