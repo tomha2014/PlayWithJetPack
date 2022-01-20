@@ -17,15 +17,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.thackbarth.playwithjetpack.navigation.screens.ApplicationScreens
+import com.thackbarth.playwithjetpack.navigation.screens.homeScreen.HomeScreenViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.delay
 
 @InternalCoroutinesApi
 @Composable
 
-fun SplashScreen(navController: NavController) {
+fun SplashScreen(navController: NavController, viewModel: HomeScreenViewModel = hiltViewModel()) {
 
     val scale = remember {
         Animatable(0f)

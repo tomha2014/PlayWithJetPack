@@ -1,6 +1,7 @@
 package com.thackbarth.playwithjetpack.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -26,16 +27,19 @@ fun ApplicationNavigation(
         startDestination = ApplicationScreens.HomeScreen.name){
 
         composable(ApplicationScreens.SplashScreen.name){
-            SplashScreen( navController)
+            val homeViewModel = hiltViewModel<HomeScreenViewModel>()
+            SplashScreen( navController, homeViewModel)
         }
 
 
         composable(ApplicationScreens.HomeScreen.name){
-            HomeScreen( navController, viewModel)
+            val homeViewModel = hiltViewModel<HomeScreenViewModel>()
+            HomeScreen( navController, homeViewModel)
         }
 
         composable(ApplicationScreens.ShoppingCart.name){
-            ShoppingCart( navController)
+            val homeViewModel = hiltViewModel<HomeScreenViewModel>()
+            ShoppingCart( navController, homeViewModel)
         }
 
         composable(ApplicationScreens.DetailsScreen.name+"/{photoId}",

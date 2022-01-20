@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.thackbarth.playwithjetpack.Constants
 import com.thackbarth.playwithjetpack.composables.ProductRow
@@ -76,11 +77,15 @@ fun HomeScreenContent(navController: NavController, homeScreenViewModel: HomeScr
     Surface(color = Color.White) {
         Column() {
             homeScreenViewModel.categoryList.value?.let {
-                ButtonBar(buttons = it, selectedTabIndex = homeScreenViewModel.filterItemIndex,
-                    buttonSelected = {
-                    homeScreenViewModel.filterCategory = it
-                        homeScreenViewModel.filterItemIndex = getCategoryIndex(homeScreenViewModel.categoryList.value!!,it)
-                })
+                if (it.isNotEmpty()) {
+                    ButtonBar(buttons = it,
+                        selectedTabIndex = homeScreenViewModel.filterItemIndex,
+                        buttonSelected = {
+                            homeScreenViewModel.filterCategory = it
+                            homeScreenViewModel.filterItemIndex =
+                                getCategoryIndex(homeScreenViewModel.categoryList.value!!, it)
+                        })
+                }
             }
             DisplayItemInRows(navController = navController, lst)
         }
