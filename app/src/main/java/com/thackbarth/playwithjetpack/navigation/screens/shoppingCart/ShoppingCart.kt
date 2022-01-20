@@ -7,7 +7,9 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.thackbarth.playwithjetpack.composables.CartRow
@@ -18,7 +20,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @InternalCoroutinesApi
 @Composable
 fun ShoppingCart(navController: NavController,
-                 shoppingCartViewModel: ShoppingCartViewModel) {
+                 shoppingCartViewModel:HomeScreenViewModel = hiltViewModel()) {
 
 
 
@@ -49,9 +51,9 @@ fun ShoppingCart(navController: NavController,
 @InternalCoroutinesApi
 @Composable
 fun ShoppingCartScreenContent(navController: NavController,
-                              viewModel: ShoppingCartViewModel) {
+                              viewModel: HomeScreenViewModel) {
 
-    val lst = viewModel.cartItemList.value
+    val lst = viewModel.cartList.collectAsState().value
 
     Surface(color = Color.White) {
         Column() {

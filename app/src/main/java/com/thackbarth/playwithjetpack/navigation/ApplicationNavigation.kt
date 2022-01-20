@@ -37,11 +37,7 @@ fun ApplicationNavigation(
         }
 
         composable(ApplicationScreens.ShoppingCart.name){
-//            val shoppingCartViewModel = hiltViewModel<ShoppingCartViewModel>()
-
-//            val shoppingCartViewModel: ShoppingCartViewModel by viewModels()
-
-            ShoppingCart( navController, shoppingCartViewModel = shoppingCartViewModel)
+            ShoppingCart( navController)
         }
 
         composable(ApplicationScreens.DetailsScreen.name+"/{photoId}",
