@@ -7,9 +7,9 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "shopping_Cart" )
 data class CartItem(
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id" )
-    val id: Int,
+    val id: Int = 0,
 
     @ColumnInfo(name = "product_ID" )
     val productID : Int,

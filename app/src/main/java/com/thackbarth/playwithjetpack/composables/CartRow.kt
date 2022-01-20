@@ -22,7 +22,7 @@ import com.thackbarth.playwithjetpack.model.Product
 
 @ExperimentalCoilApi
 @Composable
-fun CartRow(cartItem: CartItem, onItemClick: (Product) -> Unit = {}) {
+fun CartRow(cartItem: CartItem, product: Product, onItemClick: (Product) -> Unit = {}) {
     Card(
         modifier = Modifier
             .padding(4.dp)
@@ -45,17 +45,17 @@ fun CartRow(cartItem: CartItem, onItemClick: (Product) -> Unit = {}) {
                 shape = RectangleShape,
                 elevation = 4.dp
             ) {
-//                Image(
-//                    painter = rememberImagePainter(product.image),
-//                    contentDescription = cartItem.productID.toString()
-//                )
+                Image(
+                    painter = rememberImagePainter(product.image),
+                    contentDescription = cartItem.productID.toString()
+                )
             }
-//            Column(modifier = Modifier.padding(4.dp)) {
-//                Text(
-//                    text = product.title,
-//                    style = MaterialTheme.typography.h5
-//                )
-//            }
+            Column(modifier = Modifier.padding(4.dp)) {
+                Text(
+                    text = product.title,
+                    style = MaterialTheme.typography.h5
+                )
+            }
         }
     }
 }

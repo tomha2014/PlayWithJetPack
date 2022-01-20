@@ -32,21 +32,16 @@ constructor(
 
     var filterCategory: String by mutableStateOf(Constants.EVERYTHING)
     var filterItemIndex: Int by mutableStateOf(0)
-
     val productList = MutableStateFlow<List<Product>>(emptyList())
-
     val cartList = MutableStateFlow<List<CartItem>>(emptyList())
-
-
     var errorMessage: String by mutableStateOf("")
     val categoryList = MutableLiveData<List<String>>(emptyList())
-
     var cartSize: Int by mutableStateOf(0)
 
     init {
         Log.d(Constants.TAG, "init")
         loadShoppingCart()
-
+        loadAllData()
     }
 
     private fun loadShoppingCart() {
@@ -61,7 +56,7 @@ constructor(
 
     fun addProductToShoppingCart(productId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.addItem(CartItem(productID = productId, id = 1))
+            repository.addItem(CartItem(productID = productId))
         }
         // refresh the cart
         loadShoppingCart()
@@ -115,9 +110,9 @@ constructor(
          categoryList.postValue(cats)
     }
 
-    fun getAllProducts(): List<Product>{
-        return productList.value
-    }
+//    fun getAllProducts(): List<Product>{
+//        return productList.value
+//    }
 
     fun findProductByID(id: Int): Product? {
 
@@ -125,5 +120,6 @@ constructor(
 
         return productList.value.first { it.id == id }
     }
+
 
 }
