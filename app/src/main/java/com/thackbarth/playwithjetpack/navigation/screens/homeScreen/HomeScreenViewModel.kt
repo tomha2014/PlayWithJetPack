@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -55,8 +56,23 @@ constructor(
     }
 
     fun addProductToShoppingCart(productId: Int) {
+
         viewModelScope.launch(Dispatchers.IO) {
-            repository.addItem(CartItem(productID = productId))
+
+            // if cartitem exists bump up the quantity by 1.
+            // Not good logic as the user may want to add 2,
+            // but this is just a exercise application
+
+            val item = cartList.value.firstOrNull{
+                it.productID == productId
+            }
+
+            if (item == null) {
+                repository.addItem(CartItem(productID = productId))
+            }else{
+                repository.updateItem(CartItem(item.id, item.productID, item.quantity+1))
+            }
+
         }
         // refresh the cart
         loadShoppingCart()

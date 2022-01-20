@@ -55,6 +55,11 @@ fun CartRow(cartItem: CartItem, product: Product, onItemClick: (Product) -> Unit
                     text = product.title,
                     style = MaterialTheme.typography.h5
                 )
+
+                Text(
+                    text = "Quantity : ${cartItem.quantity}",
+                    style = MaterialTheme.typography.body1
+                )
             }
         }
     }

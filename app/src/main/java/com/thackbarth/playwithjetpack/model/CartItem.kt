@@ -15,5 +15,5 @@ data class CartItem(
     val productID : Int,
 
     @ColumnInfo(name = "quantity" )
-    val quantity: Int = 0
+    val quantity: Int = 1
 )
