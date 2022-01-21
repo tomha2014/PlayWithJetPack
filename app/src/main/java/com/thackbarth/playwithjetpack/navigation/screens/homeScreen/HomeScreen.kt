@@ -76,18 +76,23 @@ fun HomeScreenContent(navController: NavController, homeScreenViewModel: HomeScr
 
     Surface(color = Color.White) {
         Column() {
-            homeScreenViewModel.categoryList.value?.let {
-                if (it.isNotEmpty()) {
-                    ButtonBar(buttons = it,
-                        selectedTabIndex = homeScreenViewModel.filterItemIndex,
-                        buttonSelected = {
-                            homeScreenViewModel.filterCategory = it
-                            homeScreenViewModel.filterItemIndex =
-                                getCategoryIndex(homeScreenViewModel.categoryList.value!!, it)
-                        })
-                }
-            }
+            ButtonBarWrapper(homeScreenViewModel = homeScreenViewModel)
             DisplayItemInRows(navController = navController, lst)
+        }
+    }
+}
+
+@Composable
+fun ButtonBarWrapper(homeScreenViewModel: HomeScreenViewModel) {
+    homeScreenViewModel.categoryList.value?.let {
+        if (it.isNotEmpty()) {
+            ButtonBar(buttons = it,
+                selectedTabIndex = homeScreenViewModel.filterItemIndex,
+                buttonSelected = {
+                    homeScreenViewModel.filterCategory = it
+                    homeScreenViewModel.filterItemIndex =
+                        getCategoryIndex(homeScreenViewModel.categoryList.value!!, it)
+                })
         }
     }
 }
