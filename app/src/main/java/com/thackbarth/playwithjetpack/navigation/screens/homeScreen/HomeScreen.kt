@@ -10,7 +10,6 @@ import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.thackbarth.playwithjetpack.Constants
 import com.thackbarth.playwithjetpack.composables.ProductRow
@@ -24,7 +23,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 @InternalCoroutinesApi
 @Composable
-fun HomeScreen(navController: NavController, viewModel: HomeScreenViewModel) {
+fun HomeScreen(navController: NavController, viewModel: AppViewModel) {
 
     Scaffold(topBar = {
         TopAppBar(
@@ -64,34 +63,34 @@ fun HomeScreen(navController: NavController, viewModel: HomeScreenViewModel) {
 
 @InternalCoroutinesApi
 @Composable
-fun HomeScreenContent(navController: NavController, homeScreenViewModel: HomeScreenViewModel) {
+fun HomeScreenContent(navController: NavController, appViewModel: AppViewModel) {
 
     // NOTE TO SELF!!! vm.productList.collectAsState().value WORKS!!
 
     val lst = filterListForString(
-        homeScreenViewModel.filterCategory,
+        appViewModel.filterCategory,
         Constants.EVERYTHING,
-        homeScreenViewModel.productList.collectAsState().value
+        appViewModel.productList.collectAsState().value
     )
 
     Surface(color = Color.White) {
         Column() {
-            ButtonBarWrapper(homeScreenViewModel = homeScreenViewModel)
+            ButtonBarWrapper(appViewModel = appViewModel)
             DisplayItemInRows(navController = navController, lst)
         }
     }
 }
 
 @Composable
-fun ButtonBarWrapper(homeScreenViewModel: HomeScreenViewModel) {
-    homeScreenViewModel.categoryList.value?.let {
+fun ButtonBarWrapper(appViewModel: AppViewModel) {
+    appViewModel.categoryList.value?.let {
         if (it.isNotEmpty()) {
             ButtonBar(buttons = it,
-                selectedTabIndex = homeScreenViewModel.filterItemIndex,
+                selectedTabIndex = appViewModel.filterItemIndex,
                 buttonSelected = {
-                    homeScreenViewModel.filterCategory = it
-                    homeScreenViewModel.filterItemIndex =
-                        getCategoryIndex(homeScreenViewModel.categoryList.value!!, it)
+                    appViewModel.filterCategory = it
+                    appViewModel.filterItemIndex =
+                        getCategoryIndex(appViewModel.categoryList.value!!, it)
                 })
         }
     }

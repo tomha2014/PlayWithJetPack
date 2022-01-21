@@ -10,7 +10,7 @@ import androidx.navigation.navArgument
 import com.thackbarth.playwithjetpack.navigation.screens.ApplicationScreens
 import com.thackbarth.playwithjetpack.navigation.screens.details.DetailsScreen
 import com.thackbarth.playwithjetpack.navigation.screens.homeScreen.HomeScreen
-import com.thackbarth.playwithjetpack.navigation.screens.homeScreen.HomeScreenViewModel
+import com.thackbarth.playwithjetpack.navigation.screens.homeScreen.AppViewModel
 import com.thackbarth.playwithjetpack.navigation.screens.shoppingCart.ShoppingCart
 import com.thackbarth.playwithjetpack.navigation.screens.splash.SplashScreen
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -18,7 +18,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @InternalCoroutinesApi
 @Composable
 fun ApplicationNavigation(
-    viewModel: HomeScreenViewModel
+    viewModel: AppViewModel
 ){
 
     val navController = rememberNavController()
@@ -27,18 +27,18 @@ fun ApplicationNavigation(
         startDestination = ApplicationScreens.HomeScreen.name){
 
         composable(ApplicationScreens.SplashScreen.name){
-            val homeViewModel = hiltViewModel<HomeScreenViewModel>()
+            val homeViewModel = hiltViewModel<AppViewModel>()
             SplashScreen( navController, homeViewModel)
         }
 
 
         composable(ApplicationScreens.HomeScreen.name){
-            val homeViewModel = hiltViewModel<HomeScreenViewModel>()
+            val homeViewModel = hiltViewModel<AppViewModel>()
             HomeScreen( navController, homeViewModel)
         }
 
         composable(ApplicationScreens.ShoppingCart.name){
-            val homeViewModel = hiltViewModel<HomeScreenViewModel>()
+            val homeViewModel = hiltViewModel<AppViewModel>()
             ShoppingCart( navController, homeViewModel)
         }
 

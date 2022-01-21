@@ -16,12 +16,12 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 
 import com.thackbarth.playwithjetpack.model.Product
-import com.thackbarth.playwithjetpack.navigation.screens.homeScreen.HomeScreenViewModel
+import com.thackbarth.playwithjetpack.navigation.screens.homeScreen.AppViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @InternalCoroutinesApi
 @Composable
-fun DetailsScreen(navController: NavController, id: Int?, vm: HomeScreenViewModel) {
+fun DetailsScreen(navController: NavController, id: Int?, vm: AppViewModel) {
 
     val product = id?.let { vm.findProductByID(it, vm.productList.value) }
 
@@ -50,7 +50,7 @@ fun DetailsScreen(navController: NavController, id: Int?, vm: HomeScreenViewMode
 
 @ExperimentalCoilApi
 @Composable
-fun DetailsContent(product: Product, mainViewModel: HomeScreenViewModel) {
+fun DetailsContent(product: Product, mainViewModel: AppViewModel) {
 
     Column(
         modifier = Modifier

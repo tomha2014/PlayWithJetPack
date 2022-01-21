@@ -7,7 +7,7 @@ import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.thackbarth.playwithjetpack.navigation.ApplicationNavigation
-import com.thackbarth.playwithjetpack.navigation.screens.homeScreen.HomeScreenViewModel
+import com.thackbarth.playwithjetpack.navigation.screens.homeScreen.AppViewModel
 import com.thackbarth.playwithjetpack.ui.theme.PlayWithJetPackTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -16,7 +16,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val viewModel: HomeScreenViewModel by viewModels()
+    private val viewModel: AppViewModel by viewModels()
 
     @InternalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
 
 @InternalCoroutinesApi
 @Composable
-fun Content(viewModel: HomeScreenViewModel) {
+fun Content(viewModel: AppViewModel) {
     PlayWithJetPackTheme {
         ApplicationNavigation(viewModel = viewModel)
     }

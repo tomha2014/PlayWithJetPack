@@ -14,13 +14,13 @@ import androidx.navigation.NavController
 import com.thackbarth.playwithjetpack.composables.CartRow
 import com.thackbarth.playwithjetpack.model.CartItem
 import com.thackbarth.playwithjetpack.model.Product
-import com.thackbarth.playwithjetpack.navigation.screens.homeScreen.HomeScreenViewModel
+import com.thackbarth.playwithjetpack.navigation.screens.homeScreen.AppViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @InternalCoroutinesApi
 @Composable
 fun ShoppingCart(navController: NavController,
-                 shoppingCartViewModel:HomeScreenViewModel = hiltViewModel()) {
+                 shoppingCartViewModel:AppViewModel = hiltViewModel()) {
 
     Scaffold(topBar = {
         TopAppBar(
@@ -49,7 +49,7 @@ fun ShoppingCart(navController: NavController,
 @InternalCoroutinesApi
 @Composable
 fun ShoppingCartScreenContent(navController: NavController,
-                              viewModel: HomeScreenViewModel) {
+                              viewModel: AppViewModel) {
 
 
     val productList = viewModel.productList.collectAsState().value

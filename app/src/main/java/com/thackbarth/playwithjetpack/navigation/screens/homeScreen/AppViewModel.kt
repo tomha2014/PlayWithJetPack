@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class HomeScreenViewModel
+class AppViewModel
 @Inject
 constructor(
     private val repository: DatabaseRepo,
