@@ -30,7 +30,7 @@ fun HomeScreen(navController: NavController, viewModel: AppViewModel) {
             title = { Text(text = "What Not Store Front") },
             actions = {
 
-                    if (viewModel.cartList.value.isNotEmpty()) {
+                    if (viewModel.cartList.collectAsState().value.isNotEmpty()) {
                         IconButton(onClick = {
                             navController.navigate(route = ApplicationScreens.ShoppingCart.name )
                         }) {
@@ -87,10 +87,10 @@ fun ButtonBarWrapper(appViewModel: AppViewModel) {
         if (it.isNotEmpty()) {
             ButtonBar(buttons = it,
                 selectedTabIndex = appViewModel.filterItemIndex,
-                buttonSelected = {
-                    appViewModel.filterCategory = it
+                buttonSelected = { buttonName ->
+                    appViewModel.filterCategory = buttonName
                     appViewModel.filterItemIndex =
-                        getCategoryIndex(appViewModel.categoryList.value!!, it)
+                        getCategoryIndex(appViewModel.categoryList.value!!, buttonName)
                 })
         }
     }

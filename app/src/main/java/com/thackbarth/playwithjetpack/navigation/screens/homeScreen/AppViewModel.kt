@@ -32,14 +32,15 @@ constructor(
 
     var filterCategory: String by mutableStateOf(Constants.EVERYTHING)
     var filterItemIndex: Int by mutableStateOf(0)
-    val productList = MutableStateFlow<List<Product>>(emptyList())
+    var productList = MutableStateFlow<List<Product>>(emptyList())
     val cartList = MutableStateFlow<List<CartItem>>(emptyList())
-    var errorMessage: String by mutableStateOf("")
+
+    private var errorMessage: String by mutableStateOf("")
     val categoryList = MutableLiveData<List<String>>(emptyList())
     var cartSize: Int by mutableStateOf(0)
 
     init {
-        Log.d(Constants.TAG, "init")
+//        Log.d(Constants.TAG, "init")
         loadShoppingCart()
         loadAllData()
     }
@@ -83,12 +84,12 @@ constructor(
                     stuff ->
                 if (stuff.isNullOrEmpty()){
                     if (productList.value.isEmpty()){
-                        Log.d(Constants.TAG, "database was empty of stuff, go get new stuff from server")
+//                        Log.d(Constants.TAG, "database was empty of stuff, go get new stuff from server")
                         try {
 
                             val products = storeRepo.getListOfProducts().data
                             if (products != null) {
-                                Log.d(Constants.TAG, "data Loaded")
+//                                Log.d(Constants.TAG, "data Loaded")
 
 
                                 // Save each item in the database for next time.
@@ -111,7 +112,7 @@ constructor(
         }
     }
 
-    private fun buildCategoryList(lst: List<Product>) : List<String>{
+    fun buildCategoryList(lst: List<Product>) : List<String>{
 
         val cats = ArrayList<String>()
         cats.add("Everything")

@@ -87,6 +87,6 @@ fun DefaultPreview() {
 
 
     ButtonBar(names) {
-        Log.d("test", it)
+//        Log.d("test", it)
     }
 }
