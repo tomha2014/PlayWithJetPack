@@ -71,7 +71,6 @@ constructor(
             }else{
                 repository.updateItem(CartItem(item.id, item.productID, item.quantity+1))
             }
-
         }
         // refresh the cart
         loadShoppingCart()
@@ -83,7 +82,6 @@ constructor(
             repository.getAllProducts1().distinctUntilChanged().collect {
                     stuff ->
                 if (stuff.isNullOrEmpty()){
-                    Log.d(Constants.TAG, "out of stuff")
                     if (productList.value.isEmpty()){
                         Log.d(Constants.TAG, "database was empty of stuff, go get new stuff from server")
                         try {
@@ -99,7 +97,7 @@ constructor(
                                 }
                                 productList.value = products
 
-                                buildCategoryList()
+                                categoryList.postValue( buildCategoryList(stuff) )
                             }
                         } catch (e: Exception) {
                             errorMessage = e.message.toString()
@@ -107,14 +105,14 @@ constructor(
                     }
                 } else {
                     productList.value = stuff
-                    buildCategoryList()
+                    categoryList.postValue( buildCategoryList(stuff) )
                 }
             }
         }
     }
 
-    fun buildCategoryList() {
-        val lst = productList.value
+    private fun buildCategoryList(lst: List<Product>) : List<String>{
+
         val cats = ArrayList<String>()
         cats.add("Everything")
         lst.forEach{
@@ -122,19 +120,11 @@ constructor(
                 cats.add(it.category)
             }
         }
-         categoryList.postValue(cats)
+
+        return cats
     }
 
-//    fun getAllProducts(): List<Product>{
-//        return productList.value
-//    }
-
-    fun findProductByID(id: Int): Product? {
-
-        productList.value.map { Log.d(Constants.TAG, it.title) }
-
-        return productList.value.first { it.id == id }
+    fun findProductByID(id: Int, productList: List<Product>): Product? {
+        return productList.first { it.id == id }
     }
-
-
 }

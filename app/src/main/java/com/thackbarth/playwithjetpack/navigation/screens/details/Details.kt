@@ -23,24 +23,13 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @Composable
 fun DetailsScreen(navController: NavController, id: Int?, vm: HomeScreenViewModel) {
 
-    val product = id?.let { vm.findProductByID(it) }
+    val product = id?.let { vm.findProductByID(it, vm.productList.value) }
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(text = "Product Details") },
-                actions = {
-//                    if (vm.shoppingCart.value!= null) {
-//                        if (vm.shoppingCart.value!!.size > 0) {
-//                            IconButton(onClick = { /*TODO*/ }) {
-//                                Icon(
-//                                    imageVector = Icons.Default.ShoppingCart,
-//                                    contentDescription = "ShoppingCart"
-//                                )
-//                            }
-//                        }
-//                    }
-                },
+
                 navigationIcon = {
                         IconButton(onClick = { navController.navigateUp() }) {
                             Icon(
@@ -52,9 +41,6 @@ fun DetailsScreen(navController: NavController, id: Int?, vm: HomeScreenViewMode
             )
         },
         content = {
-            // TMH Fix This!
-            // I would not be in here if there was not a product selected,
-            // but bad
             if (product != null) {
                 DetailsContent(product = product, vm)
             }
