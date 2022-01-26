@@ -1,5 +1,6 @@
 package com.thackbarth.playwithjetpack.navigation
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
@@ -15,12 +16,12 @@ import com.thackbarth.playwithjetpack.navigation.screens.shoppingCart.ShoppingCa
 import com.thackbarth.playwithjetpack.navigation.screens.splash.SplashScreen
 import kotlinx.coroutines.InternalCoroutinesApi
 
+@OptIn(ExperimentalAnimationApi::class)
 @InternalCoroutinesApi
 @Composable
 fun ApplicationNavigation(
     viewModel: AppViewModel
 ){
-
     val navController = rememberNavController()
 
     NavHost(navController = navController,
@@ -31,7 +32,6 @@ fun ApplicationNavigation(
             SplashScreen( navController, homeViewModel)
         }
 
-
         composable(ApplicationScreens.HomeScreen.name){
             val homeViewModel = hiltViewModel<AppViewModel>()
             HomeScreen( navController, homeViewModel)
@@ -41,6 +41,8 @@ fun ApplicationNavigation(
             val homeViewModel = hiltViewModel<AppViewModel>()
             ShoppingCart( navController, homeViewModel)
         }
+
+        // This is a test
 
         composable(ApplicationScreens.DetailsScreen.name+"/{photoId}",
         arguments = listOf(navArgument(name = "photoId"){type= NavType.IntType })){
