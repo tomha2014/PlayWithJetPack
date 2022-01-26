@@ -128,4 +128,9 @@ constructor(
     fun findProductByID(id: Int, productList: List<Product>): Product? {
         return productList.first { it.id == id }
     }
+
+
+    fun productInCart(product: Product, lst: List<CartItem>): Boolean {
+        return lst.firstOrNull() { it.id == product.id } != null
+    }
 }
