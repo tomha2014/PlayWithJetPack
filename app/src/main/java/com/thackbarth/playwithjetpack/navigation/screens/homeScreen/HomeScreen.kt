@@ -41,19 +41,8 @@ fun HomeScreen(navController: NavController, viewModel: AppViewModel) {
                         }
                     }
 
-            },
-            navigationIcon = if (navController.previousBackStackEntry != null) {
-                {
-                    IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(
-                            imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = "Back"
-                        )
-                    }
-                }
-            } else {
-                null
             }
+
         )
     },
         content = {

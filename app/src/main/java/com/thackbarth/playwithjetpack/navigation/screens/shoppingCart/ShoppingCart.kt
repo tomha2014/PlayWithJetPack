@@ -55,7 +55,6 @@ fun ShoppingCartScreenContent(navController: NavController,
     val productList = viewModel.productList.collectAsState().value
     val shoppingCartItemList = viewModel.cartList.collectAsState().value
 
-
     Surface(color = Color.White) {
         Column() {
             if (shoppingCartItemList != null) {

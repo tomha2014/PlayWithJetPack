@@ -84,8 +84,6 @@ fun DefaultPreview_chip() {
 @Composable
 fun DefaultPreview() {
     val names = listOf("tom", "robin", "katie", "Todd", "Cindy", "Audrey")
-
-
     ButtonBar(names) {
 //        Log.d("test", it)
     }

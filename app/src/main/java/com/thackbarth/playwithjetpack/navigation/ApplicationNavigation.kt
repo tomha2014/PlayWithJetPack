@@ -25,7 +25,7 @@ fun ApplicationNavigation(
     val navController = rememberNavController()
 
     NavHost(navController = navController,
-        startDestination = ApplicationScreens.HomeScreen.name){
+        startDestination = ApplicationScreens.SplashScreen.name){
 
         composable(ApplicationScreens.SplashScreen.name){
             val homeViewModel = hiltViewModel<AppViewModel>()
