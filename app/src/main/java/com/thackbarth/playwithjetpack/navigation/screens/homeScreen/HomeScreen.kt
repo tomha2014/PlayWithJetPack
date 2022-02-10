@@ -24,38 +24,13 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @InternalCoroutinesApi
 @Composable
 fun HomeScreen(navController: NavController, viewModel: AppViewModel) {
-
-    Scaffold(topBar = {
-        TopAppBar(
-            title = { Text(text = "What Not Store Front") },
-            actions = {
-
-                    if (viewModel.cartList.collectAsState().value.isNotEmpty()) {
-                        IconButton(onClick = {
-                            navController.navigate(route = ApplicationScreens.ShoppingCart.name )
-                        }) {
-                            Icon(
-                                imageVector = Icons.Default.ShoppingCart,
-                                contentDescription = "ShoppingCart"
-                            )
-                        }
-                    }
-
-            }
-
-        )
-    },
-        content = {
-            HomeScreenContent(navController = navController, viewModel)
-        })
+    HomeScreenContent(navController = navController, viewModel)
 }
 
 @InternalCoroutinesApi
 @Composable
 fun HomeScreenContent(navController: NavController, appViewModel: AppViewModel) {
-
     // NOTE TO SELF!!! vm.productList.collectAsState().value WORKS!!
-
     val lst = filterListForString(
         appViewModel.filterCategory,
         Constants.EVERYTHING,
