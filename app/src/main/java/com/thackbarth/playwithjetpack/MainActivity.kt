@@ -31,9 +31,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 //@ExperimentalComposeApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
     private val viewModel: AppViewModel by viewModels()
-
     @InternalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +49,8 @@ fun Content(viewModel: AppViewModel) {
 
     val backButtonVisibleState = rememberSaveable { (mutableStateOf(true)) }
     val appBarVisibleState = rememberSaveable { (mutableStateOf(true)) }
+    val cartButtonVisibleState = rememberSaveable { (mutableStateOf(false)) }
+
 
     PlayWithJetPackTheme {
         val navController = rememberNavController()
@@ -63,7 +63,8 @@ fun Content(viewModel: AppViewModel) {
                         viewModel = viewModel,
                         title = "What Not Store Front",
                         backButtonVisibleState = backButtonVisibleState,
-                        appBarVisibleState = appBarVisibleState
+                        appBarVisibleState = appBarVisibleState,
+                        cartButtonVisibleState = cartButtonVisibleState
                     )
                 },
                 bottomBar = {},
@@ -77,18 +78,21 @@ fun Content(viewModel: AppViewModel) {
                 ) {
 
                     composable(ApplicationScreens.SplashScreen.name) {
-                        val homeViewModel = hiltViewModel<AppViewModel>()
                         LaunchedEffect(Unit) {
                             backButtonVisibleState.value = false
                             appBarVisibleState.value = false
+                            cartButtonVisibleState.value = false
                         }
+                        val homeViewModel = hiltViewModel<AppViewModel>()
                         SplashScreen(navController, homeViewModel)
                     }
 
                     composable(ApplicationScreens.HomeScreen.name) {
+
                         LaunchedEffect(Unit) {
-                            backButtonVisibleState.value = true
+                            backButtonVisibleState.value = false
                             appBarVisibleState.value = true
+                            cartButtonVisibleState.value = true
                         }
                         val homeViewModel = hiltViewModel<AppViewModel>()
                         HomeScreen(navController, homeViewModel)
@@ -98,6 +102,7 @@ fun Content(viewModel: AppViewModel) {
                         LaunchedEffect(Unit) {
                             backButtonVisibleState.value = true
                             appBarVisibleState.value = true
+                            cartButtonVisibleState.value = false
                         }
                         val homeViewModel = hiltViewModel<AppViewModel>()
                         ShoppingCart(navController, homeViewModel)
@@ -109,6 +114,14 @@ fun Content(viewModel: AppViewModel) {
                         ApplicationScreens.DetailsScreen.name + "/{photoId}",
                         arguments = listOf(navArgument(name = "photoId") { type = NavType.IntType })
                     ) { backStackEntry ->
+
+                        LaunchedEffect(Unit) {
+                            backButtonVisibleState.value = true
+                            appBarVisibleState.value = true
+                            cartButtonVisibleState.value = false
+                        }
+
+
                         DetailsScreen(
                             navController,
                             backStackEntry.arguments?.getInt("photoId"),
@@ -123,40 +136,44 @@ fun Content(viewModel: AppViewModel) {
 
 
 @Composable
-fun AppBar(navController: NavController, title: String = "Title", viewModel: AppViewModel,
-           backButtonVisibleState: MutableState<Boolean>,
-           appBarVisibleState: MutableState<Boolean>,
-        ) {
+fun AppBar(
+    navController: NavController, title: String = "Title", viewModel: AppViewModel,
+    backButtonVisibleState: MutableState<Boolean>,
+    appBarVisibleState: MutableState<Boolean>,
+    cartButtonVisibleState: MutableState<Boolean>
+) {
 
-if (appBarVisibleState.value) {
-    TopAppBar(
-        title = { Text(text = title) },
-        navigationIcon = if (backButtonVisibleState.value) {
-            {
-                IconButton(onClick = { navController.navigateUp() }) {
-                    Icon(
-                        imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = "Back"
-                    )
+    if (appBarVisibleState.value) {
+        TopAppBar(
+            title = { Text(text = title) },
+            navigationIcon = if (backButtonVisibleState.value) {
+                {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
                 }
-            }
-        } else {
-            null
-        },
-        actions = {
-            if (viewModel.cartList.collectAsState().value.isNotEmpty()) {
-                IconButton(onClick = {
-                    navController.navigate(route = ApplicationScreens.ShoppingCart.name)
-                }) {
-                    Icon(
-                        imageVector = Icons.Default.ShoppingCart,
-                        contentDescription = "ShoppingCart"
-                    )
+            } else {
+                null
+            },
+            actions = {
+                if (cartButtonVisibleState.value) {
+                    if (viewModel.cartList.collectAsState().value.isNotEmpty()) {
+                        IconButton(onClick = {
+                            navController.navigate(route = ApplicationScreens.ShoppingCart.name)
+                        }) {
+                            Icon(
+                                imageVector = Icons.Default.ShoppingCart,
+                                contentDescription = "ShoppingCart"
+                            )
+                        }
+                    }
                 }
-            }
 
-        }
-    )
-}
+            }
+        )
+    }
 
 }
