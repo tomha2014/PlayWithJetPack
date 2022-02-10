@@ -19,37 +19,19 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 @InternalCoroutinesApi
 @Composable
-fun ShoppingCart(navController: NavController,
-                 shoppingCartViewModel:AppViewModel = hiltViewModel()) {
-
-    Scaffold(topBar = {
-        TopAppBar(
-            title = { Text(text = "Shopping Cart") },
-
-            navigationIcon = if (navController.previousBackStackEntry != null) {
-                {
-                    IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(
-                            imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = "Back"
-                        )
-                    }
-                }
-            } else {
-                null
-            }
-        )
-    },
-        content = {
-            ShoppingCartScreenContent( navController, shoppingCartViewModel)
-        })
-
+fun ShoppingCart(
+    navController: NavController,
+    shoppingCartViewModel: AppViewModel = hiltViewModel()
+) {
+    ShoppingCartScreenContent(navController, shoppingCartViewModel)
 }
 
 @InternalCoroutinesApi
 @Composable
-fun ShoppingCartScreenContent(navController: NavController,
-                              viewModel: AppViewModel) {
+fun ShoppingCartScreenContent(
+    navController: NavController,
+    viewModel: AppViewModel
+) {
 
 
     val productList = viewModel.productList.collectAsState().value
@@ -58,7 +40,11 @@ fun ShoppingCartScreenContent(navController: NavController,
     Surface(color = Color.White) {
         Column() {
             if (shoppingCartItemList != null) {
-                DisplayShoppingCartRow(navController = navController, shoppingCartItemList, productList)
+                DisplayShoppingCartRow(
+                    navController = navController,
+                    shoppingCartItemList,
+                    productList
+                )
             }
         }
     }
@@ -74,7 +60,7 @@ fun DisplayShoppingCartRow(
 
     LazyColumn {
         itemsIndexed(items = shoppingCartItemList) { index, item ->
-            val product = productList.first(){it.id == item.productID}
+            val product = productList.first() { it.id == item.productID }
             CartRow(item, product = product) {}
         }
     }

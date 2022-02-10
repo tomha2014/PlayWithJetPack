@@ -31,27 +31,10 @@ fun DetailsScreen(navController: NavController, id: Int?, vm: AppViewModel) {
 
     val product = id?.let { vm.findProductByID(it, vm.productList.value) }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(text = "Product Details") },
+    if (product != null) {
+        DetailsContent(product = product, vm)
+    }
 
-                navigationIcon = {
-                        IconButton(onClick = { navController.navigateUp() }) {
-                            Icon(
-                                imageVector = Icons.Filled.ArrowBack,
-                                contentDescription = "Back"
-                            )
-                        }
-                }
-            )
-        },
-        content = {
-            if (product != null) {
-                DetailsContent(product = product, vm)
-            }
-        }
-    )
 }
 
 @ExperimentalAnimationApi
