@@ -121,7 +121,6 @@ fun Content(viewModel: AppViewModel) {
                             cartButtonVisibleState.value = false
                         }
 
-
                         DetailsScreen(
                             navController,
                             backStackEntry.arguments?.getInt("photoId"),
