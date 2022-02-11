@@ -1,16 +1,23 @@
 package com.thackbarth.playwithjetpack
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavType
@@ -36,143 +43,14 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.loadAllData()
+
         setContent {
-            Content(viewModel)
-        }
-    }
-}
-
-@OptIn(ExperimentalAnimationApi::class)
-@InternalCoroutinesApi
-@Composable
-fun Content(viewModel: AppViewModel) {
-
-    val backButtonVisibleState = rememberSaveable { (mutableStateOf(true)) }
-    val appBarVisibleState = rememberSaveable { (mutableStateOf(true)) }
-    val cartButtonVisibleState = rememberSaveable { (mutableStateOf(false)) }
-
-
-    PlayWithJetPackTheme {
-        val navController = rememberNavController()
-
-        Surface(color = MaterialTheme.colors.background) {
-            Scaffold(
-                topBar = {
-                    AppBar(
-                        navController = navController,
-                        viewModel = viewModel,
-                        title = "What Not Store Front",
-                        backButtonVisibleState = backButtonVisibleState,
-                        appBarVisibleState = appBarVisibleState,
-                        cartButtonVisibleState = cartButtonVisibleState
-                    )
-                },
-                bottomBar = {},
-                drawerContent = {
-                }
-            ) {
-
-                NavHost(
-                    navController = navController,
-                    startDestination = ApplicationScreens.SplashScreen.name
-                ) {
-
-                    composable(ApplicationScreens.SplashScreen.name) {
-                        LaunchedEffect(Unit) {
-                            backButtonVisibleState.value = false
-                            appBarVisibleState.value = false
-                            cartButtonVisibleState.value = false
-                        }
-                        val homeViewModel = hiltViewModel<AppViewModel>()
-                        SplashScreen(navController, homeViewModel)
-                    }
-
-                    composable(ApplicationScreens.HomeScreen.name) {
-
-                        LaunchedEffect(Unit) {
-                            backButtonVisibleState.value = false
-                            appBarVisibleState.value = true
-                            cartButtonVisibleState.value = true
-                        }
-                        val homeViewModel = hiltViewModel<AppViewModel>()
-                        HomeScreen(navController, homeViewModel)
-                    }
-
-                    composable(ApplicationScreens.ShoppingCart.name) {
-                        LaunchedEffect(Unit) {
-                            backButtonVisibleState.value = true
-                            appBarVisibleState.value = true
-                            cartButtonVisibleState.value = false
-                        }
-                        val homeViewModel = hiltViewModel<AppViewModel>()
-                        ShoppingCart(navController, homeViewModel)
-                    }
-
-                    // This is a test
-
-                    composable(
-                        ApplicationScreens.DetailsScreen.name + "/{photoId}",
-                        arguments = listOf(navArgument(name = "photoId") { type = NavType.IntType })
-                    ) { backStackEntry ->
-
-                        LaunchedEffect(Unit) {
-                            backButtonVisibleState.value = true
-                            appBarVisibleState.value = true
-                            cartButtonVisibleState.value = false
-                        }
-
-                        DetailsScreen(
-                            navController,
-                            backStackEntry.arguments?.getInt("photoId"),
-                            viewModel
-                        )
-                    }
-                }
+            val configuration = LocalConfiguration.current
+            when (configuration.orientation){
+                Configuration.ORIENTATION_PORTRAIT -> PortraitContent(viewModel)
+                Configuration.ORIENTATION_LANDSCAPE -> LandscapeContent(viewModel)
             }
         }
     }
 }
 
-
-@Composable
-fun AppBar(
-    navController: NavController, title: String = "Title", viewModel: AppViewModel,
-    backButtonVisibleState: MutableState<Boolean>,
-    appBarVisibleState: MutableState<Boolean>,
-    cartButtonVisibleState: MutableState<Boolean>
-) {
-
-    if (appBarVisibleState.value) {
-        TopAppBar(
-            title = { Text(text = title) },
-            navigationIcon = if (backButtonVisibleState.value) {
-                {
-                    IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(
-                            imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = "Back"
-                        )
-                    }
-                }
-            } else {
-                null
-            },
-            actions = {
-                if (cartButtonVisibleState.value) {
-                    if (viewModel.cartList.collectAsState().value.isNotEmpty()) {
-                        IconButton(onClick = {
-                            navController.navigate(route = ApplicationScreens.ShoppingCart.name)
-                        }) {
-                            Icon(
-                                imageVector = Icons.Default.ShoppingCart,
-                                contentDescription = "ShoppingCart"
-                            )
-                        }
-                    }
-                }
-
-            }
-        )
-    }
-
-}
