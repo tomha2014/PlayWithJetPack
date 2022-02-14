@@ -1,8 +1,10 @@
 package com.thackbarth.playwithjetpack
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -13,6 +15,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
@@ -25,6 +28,7 @@ import com.thackbarth.playwithjetpack.navigation.screens.details.DetailsScreen
 import com.thackbarth.playwithjetpack.navigation.screens.homeScreen.AppViewModel
 import com.thackbarth.playwithjetpack.navigation.screens.homeScreen.HomeScreen
 import com.thackbarth.playwithjetpack.navigation.screens.rootScreen.AppBar
+import com.thackbarth.playwithjetpack.navigation.screens.rootScreen.MenuSection
 import com.thackbarth.playwithjetpack.navigation.screens.shoppingCart.ShoppingCart
 import com.thackbarth.playwithjetpack.navigation.screens.splash.SplashScreen
 import com.thackbarth.playwithjetpack.ui.theme.PlayWithJetPackTheme
@@ -61,8 +65,8 @@ fun LandscapeContent(viewModel: AppViewModel) {
                 ) {
 
                 Row() {
-                    Column(Modifier.width(100.dp)) {
-                        Text(text = "Catagories")
+                    Column(Modifier.width(200.dp).background(Color.White).fillMaxHeight()) {
+                        MenuSection(viewModel = viewModel)
                     }
                     Column() {
                         NavHost(

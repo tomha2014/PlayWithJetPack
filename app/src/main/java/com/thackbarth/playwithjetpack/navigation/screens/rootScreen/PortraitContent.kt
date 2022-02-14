@@ -62,7 +62,6 @@ fun PortraitContent(viewModel: AppViewModel) {
                     navController = navController,
                     startDestination = ApplicationScreens.SplashScreen.name
                 ) {
-
                     composable(ApplicationScreens.SplashScreen.name) {
                         LaunchedEffect(Unit) {
                             backButtonVisibleState.value = false

@@ -44,8 +44,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         viewModel.loadAllData()
 
+
         setContent {
             val configuration = LocalConfiguration.current
+            viewModel.landscapeMode = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+
             when (configuration.orientation){
                 Configuration.ORIENTATION_PORTRAIT -> PortraitContent(viewModel)
                 Configuration.ORIENTATION_LANDSCAPE -> LandscapeContent(viewModel)

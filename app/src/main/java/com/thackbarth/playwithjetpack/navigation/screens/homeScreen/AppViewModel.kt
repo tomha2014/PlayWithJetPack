@@ -33,6 +33,7 @@ constructor(
 
 
 
+    var landscapeMode: Boolean by mutableStateOf(false)
     var filterCategory: String by mutableStateOf(Constants.EVERYTHING)
     var filterItemIndex: Int by mutableStateOf(0)
     var productList = MutableStateFlow<List<Product>>(emptyList())

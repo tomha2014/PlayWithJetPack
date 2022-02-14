@@ -39,7 +39,9 @@ fun HomeScreenContent(navController: NavController, appViewModel: AppViewModel) 
 
     Surface(color = Color.White) {
         Column() {
-            ButtonBarWrapper(appViewModel = appViewModel)
+            if( !appViewModel.landscapeMode) {
+                ButtonBarWrapper(appViewModel = appViewModel)
+            }
             DisplayItemInRows(navController = navController, lst)
         }
     }
